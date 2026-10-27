@@ -1,3 +1,72 @@
 .archive {
-  max-inline-size: 72rem;
+  display: grid;
+  gap: var(--space-6);
+  max-inline-size: var(--container);
+  margin-inline: auto;
+}
+
+.archive-loading {
+  min-block-size: 10rem;
+}
+
+.archive-grid {
+  columns: 2;
+  column-gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.archive-grid li {
+  break-inside: avoid;
+  margin-block-end: var(--space-4);
+}
+
+.archive-grid button {
+  display: block;
+  inline-size: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.archive-grid img,
+.archive-lightbox img {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.archive-lightbox {
+  inline-size: min(48rem, calc(100vw - 2rem));
+  max-block-size: calc(100vh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+}
+
+.archive-lightbox::backdrop {
+  background: color-mix(in srgb, var(--bg) 84%, transparent);
+}
+
+.archive-lightbox-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.archive-lightbox-bar button {
+  background: transparent;
+  color: var(--paper-ink);
+  border: 1px solid var(--paper-ink);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .archive-grid {
+    columns: 3;
+  }
 }

@@ -1,3 +1,54 @@
 .visit {
-  max-inline-size: 72rem;
+  display: grid;
+  gap: var(--space-6);
+  max-inline-size: var(--container);
+  margin-inline: auto;
+}
+
+.visit-book {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.visit-book-action {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.visit-hours {
+  border-collapse: collapse;
+  inline-size: 100%;
+}
+
+.visit-hours caption {
+  text-align: start;
+  margin-block-end: var(--space-2);
+}
+
+.visit-hours th,
+.visit-hours td {
+  padding-block: var(--space-1);
+  text-align: start;
+}
+
+.visit-hours .is-today {
+  color: var(--acid-green);
+}
+
+.visit-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.visit a {
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .visit-book {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }

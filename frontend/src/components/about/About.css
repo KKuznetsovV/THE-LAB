@@ -1,3 +1,11 @@
 .about {
-  max-inline-size: 72rem;
+  display: grid;
+  gap: var(--space-6);
+  max-inline-size: var(--container-narrow);
+  margin-inline: auto;
+}
+
+.about section {
+  display: grid;
+  gap: var(--space-3);
 }

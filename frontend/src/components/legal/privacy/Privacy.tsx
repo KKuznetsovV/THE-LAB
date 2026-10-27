@@ -4,9 +4,11 @@ import './Privacy.css';
 export default function Privacy() {
   const { t } = useTranslation();
   return (
-    <section className="privacy">
+    <article className="privacy">
       <title>{`${t('legal.privacyTitle')} · THE LAB`}</title>
       <h1>{t('legal.privacyHeading')}</h1>
-    </section>
+      <p>{t('legal.privacyBody')}</p>
+      <p>{t('legal.privacyExternal')}</p>
+    </article>
   );
 }
