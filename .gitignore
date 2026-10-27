@@ -4,6 +4,7 @@ node_modules/
 # builds (lib/dist is committed on purpose — see system_architecture.md)
 dist/
 !lib/dist/
+!lib/dist/**
 *.tsbuildinfo
 coverage/
 
