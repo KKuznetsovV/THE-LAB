@@ -1,0 +1,65 @@
+.retro-window {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  min-inline-size: 0;
+}
+
+.retro-window--light {
+  background: var(--powder-grey);
+  color: var(--paper-ink);
+}
+
+.retro-window--dark {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.retro-window-title,
+.retro-window-url,
+.retro-window-status {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+}
+
+.retro-window--light .retro-window-title,
+.retro-window--light .retro-window-url,
+.retro-window--light .retro-window-status {
+  background: var(--paper-ink);
+  color: var(--powder-grey);
+}
+
+.retro-window--dark .retro-window-title,
+.retro-window--dark .retro-window-url,
+.retro-window--dark .retro-window-status {
+  background: var(--bg);
+  color: var(--ink);
+  border-block-end: 1px solid var(--line);
+}
+
+.retro-window-status {
+  border-block-end: 0;
+  border-block-start: 1px solid var(--line);
+}
+
+.retro-window-body {
+  padding: var(--space-4);
+}
+
+.retro-window--light .section-header-kicker,
+.retro-window--light .section-header-ja,
+.retro-window--light .section-header-title {
+  color: var(--paper-ink);
+}
+
+.retro-window-controls {
+  letter-spacing: 0.2em;
+}
+
+:lang(he) .retro-window-controls {
+  letter-spacing: normal;
+}

@@ -1,0 +1,17 @@
+.section-header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.section-header-kicker {
+  color: var(--dim);
+}
+
+.section-header-title {
+  margin: 0;
+}
+
+.section-header-ja {
+  color: var(--muted);
+  font-size: var(--text-h3);
+}

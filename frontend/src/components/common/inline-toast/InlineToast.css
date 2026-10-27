@@ -1,0 +1,24 @@
+.inline-toast {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: center;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.inline-toast--success { border-color: var(--acid-green); }
+.inline-toast--error { border-color: var(--acid-pink); color: var(--acid-pink); }
+
+.inline-toast-dismiss {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+}

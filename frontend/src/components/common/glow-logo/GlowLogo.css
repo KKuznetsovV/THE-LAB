@@ -1,0 +1,24 @@
+.glow-logo {
+  display: inline-block;
+  line-height: 0;
+}
+
+.glow-logo svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.glow-logo--horizontal {
+  inline-size: 9rem;
+  min-inline-size: 96px;
+}
+
+.glow-logo--stacked {
+  inline-size: 5.5rem;
+  min-inline-size: 64px;
+}
+
+.glow-logo--glow {
+  filter: var(--logo-glow);
+}

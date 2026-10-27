@@ -1,3 +1,4 @@
+import { useEffect, useState, type ComponentType } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from '../../../about/About';
 import Archive from '../../../archive/Archive';
@@ -9,6 +10,23 @@ import Menu from '../../../menu/Menu';
 import TakeMeHome from '../../../take-me-home/TakeMeHome';
 import Visit from '../../../visit/Visit';
 import NotFound from '../not-found/NotFound';
+
+function DevStyleguide() {
+  const [Page, setPage] = useState<ComponentType | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    void import('../../../styleguide/Styleguide').then((mod) => {
+      if (active) setPage(() => mod.default);
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  if (!Page) return null;
+  return <Page />;
+}
 
 export default function Main() {
   return (
@@ -24,6 +42,7 @@ export default function Main() {
       <Route path="/about" element={<About />} />
       <Route path="/accessibility" element={<Accessibility />} />
       <Route path="/privacy" element={<Privacy />} />
+      {import.meta.env.DEV ? <Route path="/styleguide" element={<DevStyleguide />} /> : null}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

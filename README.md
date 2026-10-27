@@ -30,5 +30,6 @@ npm run dev
 ```
 
 Open http://localhost:5173. Hebrew is the document direction (`lang="he"` `dir="rtl"`). English prefix `/en` arrives in step 03.
+In dev, http://localhost:5173/styleguide shows the brand tokens and primitives. It is omitted from production builds.
 
 Run instructions for the API services are added as they land (see "Current Progress" in `system_architecture.md`).

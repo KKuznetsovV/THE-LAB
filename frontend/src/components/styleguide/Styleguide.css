@@ -1,0 +1,91 @@
+.styleguide {
+  display: grid;
+  gap: var(--space-8);
+  max-inline-size: var(--container);
+}
+
+.styleguide-bar,
+.row,
+.styleguide-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.styleguide-bar {
+  justify-content: space-between;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.swatches li {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.swatch {
+  block-size: var(--space-10);
+  border: 1px solid var(--line);
+}
+
+.type-grid {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.frames {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.frame {
+  position: relative;
+  min-block-size: 8rem;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.frame-label {
+  position: relative;
+  z-index: var(--z-raised);
+  padding: var(--space-2);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.on-paper {
+  display: inline-block;
+  background: var(--powder-grey);
+  padding: var(--space-3);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.styleguide-switch button {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding-block: var(--space-2);
+  padding-inline: var(--space-3);
+  font-family: var(--font-mono);
+  cursor: pointer;
+}
+
+.styleguide-switch button[aria-pressed="true"] {
+  background: var(--acid-green);
+  color: var(--paper-ink);
+  border-color: var(--acid-green);
+}
