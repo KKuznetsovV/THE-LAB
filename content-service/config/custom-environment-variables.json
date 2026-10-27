@@ -1,0 +1,12 @@
+{
+  "app": {
+    "port": "THELAB_CONTENT_PORT",
+    "corsOrigins": "THELAB_CORS_ORIGINS"
+  },
+  "db": {
+    "host": "THELAB_DB_HOST",
+    "port": "THELAB_DB_PORT",
+    "username": "THELAB_DB_USER",
+    "password": "THELAB_DB_PASSWORD"
+  }
+}
