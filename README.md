@@ -21,4 +21,14 @@ React 19 · Vite · Redux Toolkit · React Router 7 · React Hook Form · i18nex
 node scripts/check.mjs        # installs (if needed), builds, lints every package
 ```
 
-Run instructions are added as the services land (see "Current Progress" in `system_architecture.md`).
+## Frontend (dev)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173. Hebrew is the document direction (`lang="he"` `dir="rtl"`). English prefix `/en` arrives in step 03.
+
+Run instructions for the API services are added as they land (see "Current Progress" in `system_architecture.md`).
