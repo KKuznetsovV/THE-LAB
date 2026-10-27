@@ -1,0 +1,15 @@
+{
+	email {$CADDY_EMAIL:owner@thelabtlv.com}
+}
+
+www.thelabtlv.com {
+	redir https://thelabtlv.com{uri} permanent
+}
+
+7to1lab.com, www.7to1lab.com {
+	redir https://thelabtlv.com{uri} permanent
+}
+
+thelabtlv.com {
+	reverse_proxy frontend:80
+}

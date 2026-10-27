@@ -32,7 +32,7 @@ npm run dev
 Open http://localhost:5173. Hebrew is at `/` (`lang="he"` `dir="rtl"`). English is under `/en`.
 In dev, http://localhost:5173/styleguide shows the brand tokens and primitives. It is omitted from production builds.
 
-`npm run build:production` prerenders every public route into `dist/<path>/index.html`, then writes `dist/sitemap.xml` and `dist/robots.txt`. It needs Google Chrome. Set `SKIP_PRERENDER=1` to skip that browser step (CI does this; the frontend image does too, because the Alpine build has no Chrome). Sitemap and robots are still written. Vite's preview server falls back to the SPA shell, so it hides those files. `node scripts/preview-static.mjs` serves them the way nginx will (`/menu` → `dist/menu/index.html`) and proxies `/api` to the content service.
+`npm run build:production` prerenders every public route into `dist/<path>/index.html`, then writes `dist/sitemap.xml` and `dist/robots.txt`. It needs Google Chrome. Set `SKIP_PRERENDER=1` to skip that browser step (CI does this, and the frontend image does too unless the build is asked to prerender). Sitemap and robots are still written. Vite's preview server falls back to the SPA shell, so it hides those files. `node scripts/preview-static.mjs` serves them the way nginx will (`/menu` → `dist/menu/index.html`) and proxies `/api` to the content service.
 
 Mobile Lighthouse reports for Home, Menu, Take Me Home and Visit live in `docs/lighthouse/`.
 
@@ -74,3 +74,32 @@ npm run dev
 ```
 
 MinIO is published on http://localhost:9200 (console http://localhost:9201). The media service listens on http://localhost:3106, creates the `thelab-media` bucket, and makes only `images/*` public. `POST /api/uploads/presign` and `DELETE /api/uploads` need an owner or editor JWT from the identity service.
+
+## Full stack (Docker)
+
+Copy `.env.example` to `.env` and set the passwords. `MYSQL_ROOT_PASSWORD` and `THELAB_DB_PASSWORD` must be the same. When `.env` does not set them, compose falls back to root password `thelab`, which is what an existing dev volume was initialized with.
+
+```bash
+docker compose up -d --build
+```
+
+The site is http://localhost:8080 (Hebrew at `/`, English at `/en`, admin at `/admin`). nginx proxies `/api/*` to the services and `/media/*` to the MinIO bucket. MySQL stays on `localhost:3307` and MinIO on `localhost:9200`. App containers are not published on the host.
+
+Production compose does not publish the database or MinIO. Caddy terminates HTTPS for thelabtlv.com and redirects `www` and `7to1lab.com` to the apex.
+
+```bash
+docker compose -f docker-compose.prod.yaml config
+```
+
+## Publish images
+
+Images are `kuzmass/thelab-frontend`, `kuzmass/thelab-identity-service`, `kuzmass/thelab-content-service`, and `kuzmass/thelab-media-service`, tag `latest`, platform `linux/amd64`. The frontend publish build prerenders (the dev compose build skips that, because it has no Chrome unless you ask):
+
+```bash
+docker buildx build --platform linux/amd64 -f identity-service/Dockerfile -t kuzmass/thelab-identity-service:latest --push .
+docker buildx build --platform linux/amd64 -f content-service/Dockerfile -t kuzmass/thelab-content-service:latest --push .
+docker buildx build --platform linux/amd64 -f media-service/Dockerfile -t kuzmass/thelab-media-service:latest --push .
+docker buildx build --platform linux/amd64 -f frontend/Dockerfile --build-arg BUILD_SCRIPT=build:production --build-arg SKIP_PRERENDER=0 -t kuzmass/thelab-frontend:latest --push .
+```
+
+`.github/workflows/docker.yml` builds all four on pull requests and pushes on `main` only when `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` are set. The frontend image pushed from that workflow is the prerendered production build.
