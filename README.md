@@ -29,7 +29,18 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:5173. Hebrew is the document direction (`lang="he"` `dir="rtl"`). English prefix `/en` arrives in step 03.
+Open http://localhost:5173. Hebrew is at `/` (`lang="he"` `dir="rtl"`). English is under `/en`.
 In dev, http://localhost:5173/styleguide shows the brand tokens and primitives. It is omitted from production builds.
 
-Run instructions for the API services are added as they land (see "Current Progress" in `system_architecture.md`).
+## Content API (dev)
+
+```bash
+docker compose up -d database
+cd content-service
+npm install
+npm run dev
+```
+
+MySQL is published on `localhost:3307` (root password `thelab` in the dev compose file). The service listens on http://localhost:3109 and creates `thelab_content` on startup, seeding from `db/seed.sql` only while the cocktails table is empty.
+
+Public reads: `/api/health`, `/api/cocktails`, `/api/cocktails/:code`, `/api/bottles`, `/api/spirits`, `/api/events`, `/api/gallery`, `/api/hours`, `/api/settings`.
