@@ -59,6 +59,7 @@ function listSlice<T>(name: string, load: () => Promise<T[]>) {
 const menu = listSlice<CocktailDto>('menu', () => contentService.getCocktails());
 const bottles = listSlice<BottleDto>('bottles', () => contentService.getBottles());
 const events = listSlice<EventDto>('events', () => contentService.getEvents('upcoming'));
+const pastEvents = listSlice<EventDto>('pastEvents', () => contentService.getEvents('past'));
 const gallery = listSlice<GalleryImageDto>('gallery', () => contentService.getGallery());
 const spirits = listSlice<SpiritGroupDto>('spirits', () => contentService.getSpirits());
 
@@ -68,6 +69,8 @@ export const bottlesReducer = bottles.reducer;
 export const loadBottles = bottles.load;
 export const eventsReducer = events.reducer;
 export const loadEvents = events.load;
+export const pastEventsReducer = pastEvents.reducer;
+export const loadPastEvents = pastEvents.load;
 export const galleryReducer = gallery.reducer;
 export const loadGallery = gallery.load;
 export const spiritsReducer = spirits.reducer;
@@ -83,6 +86,10 @@ export function selectBottles(state: { bottles: ListState<BottleDto> }): ListSta
 
 export function selectEvents(state: { events: ListState<EventDto> }): ListState<EventDto> {
   return state.events;
+}
+
+export function selectPastEvents(state: { pastEvents: ListState<EventDto> }): ListState<EventDto> {
+  return state.pastEvents;
 }
 
 export function selectGallery(state: { gallery: ListState<GalleryImageDto> }): ListState<GalleryImageDto> {
