@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import PageMeta from '../seo/PageMeta';
 import './About.css';
 
 export default function About() {
   const { t } = useTranslation();
   return (
     <article className="about">
-      <title>{`${t('about.title')} · THE LAB`}</title>
+      <PageMeta title={`${t('about.title')} · THE LAB`} description={t('seo.about')} path="/about" />
       <h1>{t('about.heading')}</h1>
       <p>{t('about.story')}</p>
       <section>

@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../../redux/hooks';
 import { selectSettings } from '../../../redux/settings-slice';
 import { telHref } from '../../../utils/site-defaults';
+import PageMeta from '../../seo/PageMeta';
 import './Accessibility.css';
 
 export default function Accessibility() {
@@ -22,7 +23,7 @@ export default function Accessibility() {
 
   return (
     <article className="accessibility">
-      <title>{`${t('legal.accessibilityTitle')} · THE LAB`}</title>
+      <PageMeta title={`${t('legal.accessibilityTitle')} · THE LAB`} description={t('seo.accessibility')} path="/accessibility" />
       <h1>{t('legal.accessibilityHeading')}</h1>
       <p>{t('legal.standard')}</p>
       <p>{t('legal.done')}</p>

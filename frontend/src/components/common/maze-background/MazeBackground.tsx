@@ -4,9 +4,9 @@ import './MazeBackground.css';
 type Variant = 'black' | 'green' | 'grey';
 
 const SOURCES: Record<Variant, string> = {
-  black: '/brand/patterns/pattern-maze-black.png',
-  green: '/brand/patterns/pattern-maze-green.png',
-  grey: '/brand/patterns/pattern-maze-grey.png',
+  black: '/brand/patterns/pattern-maze-black-thumb.webp',
+  green: '/brand/patterns/pattern-maze-green-thumb.webp',
+  grey: '/brand/patterns/pattern-maze-grey-thumb.webp',
 };
 
 type Props = {

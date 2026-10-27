@@ -28,7 +28,7 @@ export default function BottlesTeaser() {
         <div className="bottles-teaser-layout">
           <div className="bottles-teaser-photo">
             {bottle?.imageUrl ? (
-              <img src={bottle.imageUrl} alt={alt} loading="lazy" decoding="async" />
+              <img src={bottle.imageUrl} alt={alt} width={640} height={800} loading="lazy" decoding="async" />
             ) : (
               <p className="t-mono" lang="en">THE LAB</p>
             )}

@@ -30,9 +30,13 @@ export default function TypeLine({ text }: Props) {
   }, [text]);
 
   return (
-    <p className="type-line t-display" aria-label={text}>
-      <span aria-hidden="true">{shown}</span>
-      <BlinkCursor />
+    <p className="type-line t-display">
+      <span className="visually-hidden">{text}</span>
+      <span className="type-line-sizer" aria-hidden="true">{text}</span>
+      <span className="type-line-live" aria-hidden="true">
+        {shown}
+        <BlinkCursor />
+      </span>
     </p>
   );
 }

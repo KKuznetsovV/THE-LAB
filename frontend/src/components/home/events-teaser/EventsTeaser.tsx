@@ -52,6 +52,8 @@ export default function EventsTeaser() {
                 <img
                   src={event.imageUrl}
                   alt={text(event.imageAltHe ?? '', event.imageAltEn ?? '')}
+                  width={1200}
+                  height={675}
                   loading="lazy"
                   decoding="async"
                 />

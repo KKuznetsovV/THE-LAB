@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import RetroWindow from '../common/retro-window/RetroWindow';
+import PageMeta from '../seo/PageMeta';
+import { EventJsonLd } from '../seo/JsonLd';
+import { absoluteUrl } from '../../utils/site-origin';
 import TerminalLoader from '../common/terminal-loader/TerminalLoader';
 import { useLocalized } from '../../hooks/use-localized';
 import { useLocalizedPath } from '../../i18n/locale';
@@ -27,7 +30,7 @@ function EventCard({ event, locale, title }: { event: EventDto; locale: string; 
       <RetroWindow url={`https://thelabtlv.com/events/${event.slug}`}>
         <Link className="event-card" to={localize(`/events/${event.slug}`)}>
           {event.imageUrl ? (
-            <img src={event.imageUrl} alt={title} loading="lazy" decoding="async" />
+            <img src={event.imageUrl} alt={title} width={1200} height={675} loading="lazy" decoding="async" />
           ) : null}
           <span className="t-mono">{whenLabel(event.startsAt, locale)}</span>
           <span>{title}</span>
@@ -56,9 +59,29 @@ export default function Events() {
   const all = [...upcoming.items, ...past.items];
   const current = slug ? all.find((event) => event.slug === slug) ?? null : null;
 
+  const detailTitle = current ? text(current.titleHe, current.titleEn) : t('events.missing');
+  const pageTitle = `${slug ? detailTitle : t('events.title')} · THE LAB`;
+  const pagePath = slug ? `/events/${slug}` : '/events';
+  const detailBody = current ? text(current.bodyHe, current.bodyEn) : '';
+
   return (
     <div className="events">
-      <title>{`${slug ? current ? text(current.titleHe, current.titleEn) : t('events.missing') : t('events.title')} · THE LAB`}</title>
+      <PageMeta
+        title={pageTitle}
+        description={detailBody.trim() || t('seo.events')}
+        path={pagePath}
+        type={current ? 'article' : 'website'}
+      />
+      {current ? (
+        <EventJsonLd
+          name={text(current.titleHe, current.titleEn)}
+          description={detailBody.trim() || t('seo.events')}
+          startDate={current.startsAt}
+          endDate={current.endsAt}
+          url={absoluteUrl(localize(pagePath))}
+          image={current.imageUrl}
+        />
+      ) : null}
       <h1>{t('events.heading')}</h1>
       {loading ? <div className="events-loading"><TerminalLoader /></div> : null}
       {failed ? (

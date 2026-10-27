@@ -24,32 +24,50 @@
 .terminal-button--md { padding-block: var(--space-3); padding-inline: var(--space-4); }
 .terminal-button--lg { padding-block: var(--space-4); padding-inline: var(--space-6); font-size: var(--text-small); }
 
-.terminal-button--primary {
+a.terminal-button--primary,
+button.terminal-button--primary {
   background: var(--acid-green);
   color: var(--paper-ink);
 }
 
-.terminal-button--primary:hover {
+a.terminal-button--primary:hover,
+button.terminal-button--primary:hover {
   background: var(--acid-pink);
   color: var(--paper-ink);
 }
 
-.terminal-button--outline {
+a.terminal-button--outline,
+button.terminal-button--outline {
   background: transparent;
   color: var(--ink);
   border-color: var(--acid-green);
 }
 
-.terminal-button--outline:hover {
+a.terminal-button--outline:hover,
+button.terminal-button--outline:hover {
   color: var(--acid-pink);
   border-color: var(--acid-pink);
 }
 
-.terminal-button--ghost {
+.retro-window--light a.terminal-button--outline,
+.retro-window--light button.terminal-button--outline {
+  color: var(--paper-ink);
+  border-color: var(--paper-ink);
+}
+
+.retro-window--light a.terminal-button--outline:hover,
+.retro-window--light button.terminal-button--outline:hover {
+  color: var(--paper-ink);
+  border-color: var(--acid-pink);
+}
+
+a.terminal-button--ghost,
+button.terminal-button--ghost {
   background: transparent;
   color: var(--ink);
 }
 
-.terminal-button--ghost:hover {
+a.terminal-button--ghost:hover,
+button.terminal-button--ghost:hover {
   color: var(--acid-pink);
 }
