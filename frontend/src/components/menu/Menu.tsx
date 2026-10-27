@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { loadBottles, loadMenu, loadSpirits, selectBottles, selectMenu, selectSpirits } from '../../redux/collections';
 import { selectSettings } from '../../redux/settings-slice';
 import { prefersReducedMotion } from '../../utils/motion';
+import PageMeta from '../seo/PageMeta';
 import CocktailDialog from './CocktailDialog';
 import CocktailRow from './CocktailRow';
 import FlavourFilter from './FlavourFilter';
@@ -106,10 +107,13 @@ export default function Menu() {
   const openItem = code ? menu.items.find((item) => item.code === code) ?? null : null;
   const openBottle = code ? bottles.items.find((item) => item.cocktail.code === code) ?? null : null;
   const warning = text(settings.alcoholWarningHe, settings.alcoholWarningEn);
+  const detail = openItem ? text(openItem.descriptionHe ?? '', openItem.descriptionEn ?? '').trim() : '';
+  const pageTitle = openItem ? `${openItem.nameEn} · THE LAB` : `${t('menu.title')} · THE LAB`;
+  const pagePath = code ? `/menu/${code}` : '/menu';
 
   return (
     <div className="menu-page">
-      <title>{`${t('menu.title')} · THE LAB`}</title>
+      <PageMeta title={pageTitle} description={detail || t('seo.menu')} path={pagePath} />
       <h1 className="visually-hidden">{t('menu.heading')}</h1>
       <nav className="menu-nav" aria-label={t('menu.nav')}>
         {MENU_BLOCKS.map((block) => (

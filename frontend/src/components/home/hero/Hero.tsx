@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import tight700 from '@fontsource/inter-tight/files/inter-tight-latin-700-normal.woff2?url';
+import pixel400 from '@fontsource/vt323/files/vt323-latin-400-normal.woff2?url';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CrtOverlay from '../../common/crt-overlay/CrtOverlay';
@@ -85,13 +87,16 @@ export default function Hero() {
 
   return (
     <section className="hero">
+      <link rel="preload" href={tight700} as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" href={pixel400} as="font" type="font/woff2" crossOrigin="anonymous" />
+      <link rel="preload" as="image" href="/brand/patterns/pattern-maze-black-thumb.webp" />
       <MazeBackground variant="black" />
       <CrtOverlay flicker={!prefersReducedMotion()} />
       <div className="hero-copy">
         <GlowLogo variant="stacked" colour="green" glow label="THE LAB" />
-        <p className="hero-tagline" lang="en">
+        <div className="hero-tagline" lang="en">
           <TypeLine text={t('home.tagline')} />
-        </p>
+        </div>
         <p className="hero-accent t-pixel" lang="ja" aria-hidden="true">{t('home.accent')}</p>
         <p className="hero-status t-mono">{status}</p>
         <div className="hero-actions">

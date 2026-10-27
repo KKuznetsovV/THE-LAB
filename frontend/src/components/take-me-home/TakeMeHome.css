@@ -73,10 +73,6 @@
   gap: var(--space-3);
 }
 
-.take-me-home a {
-  color: inherit;
-}
-
 .serving-guide {
   display: grid;
   gap: var(--space-4);

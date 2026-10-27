@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../redux/hooks';
 import { loadBottles, loadEvents, loadMenu } from '../../redux/collections';
+import PageMeta from '../seo/PageMeta';
+import { VenueJsonLd } from '../seo/JsonLd';
 import BottlesTeaser from './bottles-teaser/BottlesTeaser';
 import Concept from './concept/Concept';
 import EventsTeaser from './events-teaser/EventsTeaser';
@@ -11,6 +14,7 @@ import VisitTeaser from './visit-teaser/VisitTeaser';
 import './Home.css';
 
 export default function Home() {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,7 +25,8 @@ export default function Home() {
 
   return (
     <div className="home">
-      <title>THE LAB · TLV</title>
+      <PageMeta title="THE LAB · TLV" description={t('seo.home')} path="/" />
+      <VenueJsonLd />
       <h1 className="visually-hidden">THE LAB</h1>
       <Hero />
       <div className="home-sections">

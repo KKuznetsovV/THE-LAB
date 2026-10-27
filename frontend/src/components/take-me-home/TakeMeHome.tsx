@@ -6,6 +6,7 @@ import PriceTag from '../common/price-tag/PriceTag';
 import RetroWindow from '../common/retro-window/RetroWindow';
 import TerminalButton from '../common/terminal-button/TerminalButton';
 import TerminalLoader from '../common/terminal-loader/TerminalLoader';
+import PageMeta from '../seo/PageMeta';
 import { useDelivery } from '../../hooks/use-delivery';
 import { useLocalized } from '../../hooks/use-localized';
 import { useLocalizedPath } from '../../i18n/locale';
@@ -44,7 +45,7 @@ export default function TakeMeHome() {
 
   return (
     <div className="take-me-home">
-      <title>{`${t('takeMeHome.title')} · THE LAB`}</title>
+      <PageMeta title={`${t('takeMeHome.title')} · THE LAB`} description={t('seo.takeMeHome')} path="/take-me-home" />
       <RetroWindow url="https://thelabtlv.com/take-me-home">
         <div className="take-me-home-hero">
           <h1>{t('takeMeHome.heading')}</h1>
@@ -92,6 +93,8 @@ export default function TakeMeHome() {
                   <img
                     src={bottle.imageUrl}
                     alt={text(bottle.imageAltHe ?? name, bottle.imageAltEn ?? name)}
+                    width={480}
+                    height={640}
                     loading="lazy"
                     decoding="async"
                   />

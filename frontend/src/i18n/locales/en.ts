@@ -216,6 +216,18 @@ export const en = {
     privacyExternal: 'Booking a table and ordering delivery continue on the provider’s site. That provider’s terms apply there.',
   },
   admin: { title: 'Admin' },
+  seo: {
+    home: 'Experimental cocktail bar by TYO in Neve Tzedek. Menu, bottled cocktails, events and reservations.',
+    menu: 'THE LAB menu: Liquid Records, classics, almost-classics and alcohol-free cocktails.',
+    takeMeHome: 'Bottled cocktails from THE LAB, 200 ml and 500 ml, with a serving guide.',
+    visit: 'Hours, address and reservations at THE LAB, Ahad Haam 1, Neve Tzedek.',
+    events: 'Upcoming and past events at THE LAB in Neve Tzedek.',
+    archive: 'Photographs from THE LAB, the cocktail bar in Neve Tzedek.',
+    about: 'The story of THE LAB by TYO: one lab bench, in-house distillation and the TYO kitchen.',
+    accessibility: 'Accessibility statement for THE LAB, aimed at IS 5568 and WCAG 2.1 AA.',
+    privacy: 'THE LAB sets no tracking cookies. Language and the age confirmation stay on your device.',
+    notFound: 'This page was not found.',
+  },
   errors: {
     notFoundTitle: 'Not found',
     notFound: 'ERR 404 // NODE NOT FOUND',

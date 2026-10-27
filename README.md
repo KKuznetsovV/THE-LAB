@@ -32,6 +32,19 @@ npm run dev
 Open http://localhost:5173. Hebrew is at `/` (`lang="he"` `dir="rtl"`). English is under `/en`.
 In dev, http://localhost:5173/styleguide shows the brand tokens and primitives. It is omitted from production builds.
 
+`npm run build:production` prerenders every public route into `dist/<path>/index.html`, then writes `dist/sitemap.xml` and `dist/robots.txt`. It needs Google Chrome. Set `SKIP_PRERENDER=1` to skip that browser step (CI does this; the frontend image does too, because the Alpine build has no Chrome). Sitemap and robots are still written. Vite's preview server falls back to the SPA shell, so it hides those files. `node scripts/preview-static.mjs` serves them the way nginx will (`/menu` → `dist/menu/index.html`) and proxies `/api` to the content service.
+
+Mobile Lighthouse reports for Home, Menu, Take Me Home and Visit live in `docs/lighthouse/`.
+
+Accessibility check (not part of the build gate; needs Chrome):
+
+```bash
+cd frontend
+npm run test:e2e
+```
+
+The dev server can already be running on port 5173. The suite runs axe-core on every public route in Hebrew and English, and on `/admin/login`, and fails on serious or critical violations.
+
 ## Content API (dev)
 
 ```bash

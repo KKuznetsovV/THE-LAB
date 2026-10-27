@@ -48,7 +48,7 @@ thelab-web/
 │   ├── src/components/{home,menu,take-me-home,visit,events,archive,about,legal,admin}/
 │   ├── src/components/models/   src/hooks/   src/i18n/   src/redux/   src/services/{public,auth-aware}/   src/utils/
 │   ├── nginx.conf · Dockerfile · .env.development · .env.docker · .env.production
-├── scripts/                  check.mjs · fetch-brand-assets.mjs · prerender.mjs · sitemap.mjs
+├── scripts/                  check.mjs · fetch-brand-assets.mjs · prerender.mjs · sitemap.mjs · og-image.mjs · preview-static.mjs
 ├── docker-compose.yaml · docker-compose.prod.yaml · .env.example · README.md · system_architecture.md
 ```
 
@@ -69,6 +69,7 @@ thelab-web/
 14. Prices are integers in ILS. UI renders them in brackets with the mono font: `[₪64]` (EN) / `[64₪]` (HE).
 15. Git: one branch per step (`<type>/<NN>-<slug>`), build gate (`node scripts/check.mjs`) must be green before commit and before merge, `--no-ff` merges into `main`, remote step branches are kept for history. See `.cursor/rules/workflow.mdc`.
 16. media-service does not call `PutBucketCors` when the endpoint is MinIO (`minio`, port 9000, or host port 9200). MinIO does not implement that call the way AWS does. On real S3 the bucket must allow the public site origins to `POST`, `GET`, and `HEAD`, accept `Content-Type` plus the presigned POST fields, and expose `ETag`. Public reads stay limited to `images/*`.
+17. SEO: each public route renders title, description, canonical, hreflang (`he`, `en`, `x-default` = Hebrew), Open Graph and Twitter tags, plus `BarOrPub` JSON-LD on Home and Visit and `Event` JSON-LD on an event page. `scripts/prerender.mjs` (Playwright + installed Chrome) writes `dist/<path>/index.html` after the Vite build. `SKIP_PRERENDER=1` skips that browser step — CI sets it, and the Alpine frontend image defaults to it because that image has no Chrome. `scripts/sitemap.mjs` still writes `sitemap.xml` and `robots.txt` (`Disallow: /admin`). Old WordPress paths 301 in `frontend/nginx.conf` for both the percent-encoded and literal Hebrew forms, with and without a trailing slash; `7to1lab.com` and `www.7to1lab.com` 301 to `https://thelabtlv.com`, applying those path rules in the same hop. Step 13 applies cache headers: hashed `/assets/` `public, max-age=31536000, immutable`; prerendered HTML `no-cache`; `/brand/` and `/og/` one day; sitemap and robots one hour. Maze backgrounds use the WebP thumbs. The hero preloads Inter Tight 700 and VT323 only.
 
 ## Current Progress & Next Steps
 - [x] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
@@ -83,7 +84,7 @@ thelab-web/
 - [x] 09 Menu page (`feat/09-menu`)
 - [x] 10 Take Me Home, Visit/Book, Events, Archive, About, legal pages (`feat/10-pages`)
 - [x] 11 Admin panel (`feat/11-admin`)
-- [ ] 12 SEO, performance, accessibility (`feat/12-seo-perf-a11y`)
+- [x] 12 SEO, performance, accessibility (`feat/12-seo-perf-a11y`)
 - [ ] 13 Docker, gateway, production compose (`chore/13-docker-deploy`)
 - [ ] 14 QA, docs, v1.0.0 (`chore/14-launch`)
 

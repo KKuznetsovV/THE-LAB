@@ -5,6 +5,8 @@ import { useAppSelector } from '../../redux/hooks';
 import { selectHours, selectSettings } from '../../redux/settings-slice';
 import { isOpenNow, nextChange, weekdayInJerusalem } from '../../utils/hours';
 import { siteDefaults, telHref } from '../../utils/site-defaults';
+import PageMeta from '../seo/PageMeta';
+import { VenueJsonLd } from '../seo/JsonLd';
 import './Visit.css';
 
 const DAY_ANCHOR = new Date(Date.UTC(2026, 0, 4));
@@ -44,7 +46,8 @@ export default function Visit() {
 
   return (
     <div className="visit">
-      <title>{`${t('visit.title')} · THE LAB`}</title>
+      <PageMeta title={`${t('visit.title')} · THE LAB`} description={t('seo.visit')} path="/visit" />
+      <VenueJsonLd />
       <h1>{t('visit.heading')}</h1>
       <div className="visit-book">
         <section className="visit-book-action">

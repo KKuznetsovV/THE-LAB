@@ -1,16 +1,28 @@
-import { useEffect, useState, type ComponentType, type ReactNode } from 'react';
+import { lazy, Suspense, useEffect, useState, type ComponentType, type ReactNode } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import About from '../../../about/About';
-import Archive from '../../../archive/Archive';
-import Events from '../../../events/Events';
+import TerminalLoader from '../../../common/terminal-loader/TerminalLoader';
 import Home from '../../../home/Home';
-import Accessibility from '../../../legal/accessibility/Accessibility';
-import Privacy from '../../../legal/privacy/Privacy';
-import Menu from '../../../menu/Menu';
-import TakeMeHome from '../../../take-me-home/TakeMeHome';
-import Visit from '../../../visit/Visit';
 import NotFound from '../not-found/NotFound';
 import LocaleLayout from '../locale-layout/LocaleLayout';
+import { readyPages, type PageKey } from './route-preload';
+
+const lazyPages: Record<PageKey, ReturnType<typeof lazy>> = {
+  menu: lazy(() => import('../../../menu/Menu')),
+  'take-me-home': lazy(() => import('../../../take-me-home/TakeMeHome')),
+  visit: lazy(() => import('../../../visit/Visit')),
+  events: lazy(() => import('../../../events/Events')),
+  archive: lazy(() => import('../../../archive/Archive')),
+  about: lazy(() => import('../../../about/About')),
+  accessibility: lazy(() => import('../../../legal/accessibility/Accessibility')),
+  privacy: lazy(() => import('../../../legal/privacy/Privacy')),
+};
+
+function Page({ name }: { name: PageKey }) {
+  const Loaded = readyPages[name];
+  if (Loaded) return <Loaded />;
+  const LazyPage = lazyPages[name];
+  return <LazyPage />;
+}
 
 function DevStyleguide() {
   const [Page, setPage] = useState<ComponentType | null>(null);
@@ -33,16 +45,16 @@ function pages(): ReactNode {
   return (
     <>
       <Route index element={<Home />} />
-      <Route path="menu" element={<Menu />} />
-      <Route path="menu/:code" element={<Menu />} />
-      <Route path="take-me-home" element={<TakeMeHome />} />
-      <Route path="visit" element={<Visit />} />
-      <Route path="events" element={<Events />} />
-      <Route path="events/:slug" element={<Events />} />
-      <Route path="archive" element={<Archive />} />
-      <Route path="about" element={<About />} />
-      <Route path="accessibility" element={<Accessibility />} />
-      <Route path="privacy" element={<Privacy />} />
+      <Route path="menu" element={<Page name="menu" />} />
+      <Route path="menu/:code" element={<Page name="menu" />} />
+      <Route path="take-me-home" element={<Page name="take-me-home" />} />
+      <Route path="visit" element={<Page name="visit" />} />
+      <Route path="events" element={<Page name="events" />} />
+      <Route path="events/:slug" element={<Page name="events" />} />
+      <Route path="archive" element={<Page name="archive" />} />
+      <Route path="about" element={<Page name="about" />} />
+      <Route path="accessibility" element={<Page name="accessibility" />} />
+      <Route path="privacy" element={<Page name="privacy" />} />
       <Route path="*" element={<NotFound />} />
     </>
   );
@@ -50,14 +62,16 @@ function pages(): ReactNode {
 
 export default function Main() {
   return (
-    <Routes>
-      {import.meta.env.DEV ? <Route path="styleguide" element={<DevStyleguide />} /> : null}
-      <Route path="en" element={<LocaleLayout locale="en" />}>
-        {pages()}
-      </Route>
-      <Route element={<LocaleLayout locale="he" />}>
-        {pages()}
-      </Route>
-    </Routes>
+    <Suspense fallback={<TerminalLoader />}>
+      <Routes>
+        {import.meta.env.DEV ? <Route path="styleguide" element={<DevStyleguide />} /> : null}
+        <Route path="en" element={<LocaleLayout locale="en" />}>
+          {pages()}
+        </Route>
+        <Route element={<LocaleLayout locale="he" />}>
+          {pages()}
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }

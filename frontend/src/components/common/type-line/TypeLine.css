@@ -1,4 +1,15 @@
 .type-line {
+  display: grid;
+  justify-content: center;
   margin: 0;
   max-inline-size: 18ch;
+}
+
+.type-line-sizer,
+.type-line-live {
+  grid-area: 1 / 1;
+}
+
+.type-line-sizer {
+  visibility: hidden;
 }

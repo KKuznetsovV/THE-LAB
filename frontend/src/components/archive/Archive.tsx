@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import RetroWindow from '../common/retro-window/RetroWindow';
 import TerminalLoader from '../common/terminal-loader/TerminalLoader';
+import PageMeta from '../seo/PageMeta';
 import { useLocalized } from '../../hooks/use-localized';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { loadGallery, selectGallery } from '../../redux/collections';
@@ -53,7 +54,7 @@ export default function Archive() {
 
   return (
     <div className="archive">
-      <title>{`${t('archive.title')} · THE LAB`}</title>
+      <PageMeta title={`${t('archive.title')} · THE LAB`} description={t('seo.archive')} path="/archive" />
       <h1>{t('archive.heading')}</h1>
       {gallery.status === 'idle' || gallery.status === 'loading' ? (
         <div className="archive-loading"><TerminalLoader /></div>
@@ -69,7 +70,7 @@ export default function Archive() {
         {gallery.items.map((image, imageIndex) => (
           <li key={image.id}>
             <button type="button" aria-label={text(image.altHe, image.altEn)} onClick={() => setIndex(imageIndex)}>
-              <img src={image.url} alt="" loading="lazy" decoding="async" />
+              <img src={image.url} alt="" width={600} height={800} loading="lazy" decoding="async" />
             </button>
             {image.credit ? <p>{t('archive.credit')}: {image.credit}</p> : null}
           </li>
@@ -91,7 +92,7 @@ export default function Archive() {
               <button type="button" className="t-mono" onClick={close}>{t('archive.close')}</button>
               <button type="button" className="t-mono" onClick={() => step(1)}>{t('archive.next')}</button>
             </div>
-            <img src={open.url} alt={text(open.altHe, open.altEn)} />
+            <img src={open.url} alt={text(open.altHe, open.altEn)} width={1200} height={1600} />
             {open.credit ? <p>{t('archive.credit')}: {open.credit}</p> : null}
           </RetroWindow>
         ) : null}

@@ -43,10 +43,6 @@
   gap: var(--space-4);
 }
 
-.visit a {
-  color: var(--ink);
-}
-
 @media (min-width: 768px) {
   .visit-book {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
