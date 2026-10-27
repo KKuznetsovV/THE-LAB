@@ -1,0 +1,27 @@
+.concept-grid {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.concept-card {
+  display: grid;
+  gap: var(--space-3);
+  min-block-size: 9rem;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.concept-card h3,
+.concept-card p {
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .concept-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

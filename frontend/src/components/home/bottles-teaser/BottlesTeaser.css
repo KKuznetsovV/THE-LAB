@@ -1,0 +1,39 @@
+.bottles-teaser-layout {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.bottles-teaser-photo {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 4;
+  max-inline-size: 16rem;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.bottles-teaser-photo img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.bottles-teaser-copy {
+  display: grid;
+  align-content: center;
+  gap: var(--space-4);
+}
+
+.bottles-teaser-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .bottles-teaser-layout {
+    grid-template-columns: 16rem minmax(0, 1fr);
+    align-items: center;
+  }
+}

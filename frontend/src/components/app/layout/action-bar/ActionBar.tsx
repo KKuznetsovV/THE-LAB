@@ -1,17 +1,19 @@
 import { useTranslation } from 'react-i18next';
 import TerminalButton from '../../../common/terminal-button/TerminalButton';
 import { useDelivery } from '../../../../hooks/use-delivery';
-import { siteDefaults } from '../../../../utils/site-defaults';
+import { useAppSelector } from '../../../../redux/hooks';
+import { selectSettings } from '../../../../redux/settings-slice';
 import './ActionBar.css';
 
 export default function ActionBar() {
   const { t } = useTranslation();
   const { providers, sheetOpen, closeSheet, order } = useDelivery();
+  const settings = useAppSelector(selectSettings);
 
   return (
     <>
       <div className="action-bar">
-        <TerminalButton href={siteDefaults.reservationUrl} newTabLabel={t('common.opensNewTab')}>
+        <TerminalButton href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
           {t('common.book')}
         </TerminalButton>
         <TerminalButton variant="outline" onClick={order}>

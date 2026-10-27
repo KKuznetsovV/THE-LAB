@@ -1,0 +1,28 @@
+.visit-hours {
+  border-collapse: collapse;
+  inline-size: 100%;
+  max-inline-size: 24rem;
+}
+
+.visit-hours caption {
+  text-align: start;
+  margin-block-end: var(--space-2);
+}
+
+.visit-hours th,
+.visit-hours td {
+  padding-block: var(--space-1);
+  padding-inline: var(--space-2);
+  text-align: start;
+}
+
+.visit-hours .is-today {
+  color: var(--acid-green);
+}
+
+.visit-teaser-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}

@@ -1,5 +1,9 @@
 FROM node:24-alpine AS builder
 
+WORKDIR /app
+COPY lib/package.json lib/package-lock.json /app/lib/
+COPY lib/dist /app/lib/dist
+
 WORKDIR /app/frontend
 
 COPY frontend/package.json frontend/package-lock.json ./

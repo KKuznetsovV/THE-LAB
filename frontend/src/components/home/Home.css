@@ -1,3 +1,7 @@
-.home {
-  max-inline-size: 72rem;
+.home-sections {
+  display: grid;
+  gap: var(--space-12);
+  max-inline-size: var(--container);
+  margin-inline: auto;
+  padding-block-start: var(--space-12);
 }

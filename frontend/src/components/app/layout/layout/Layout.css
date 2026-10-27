@@ -5,6 +5,7 @@
 }
 
 .layout-main {
+  min-inline-size: 0;
   padding-block: 1.5rem;
   padding-inline: 1rem;
 }

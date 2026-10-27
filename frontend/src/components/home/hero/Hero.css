@@ -1,0 +1,76 @@
+.hero {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-block-size: 100svh;
+  margin-block-start: -1.5rem;
+  margin-inline: -1rem;
+  overflow: hidden;
+  padding: var(--space-8) var(--space-4);
+}
+
+@media (max-width: 899px) {
+  .hero {
+    padding-block-end: calc(6.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+.hero-copy {
+  position: relative;
+  z-index: var(--z-raised);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+  inline-size: 100%;
+  max-inline-size: 36rem;
+  min-inline-size: 0;
+}
+
+.hero-tagline {
+  margin: 0;
+  max-inline-size: 100%;
+}
+
+.hero-tagline .type-line {
+  max-inline-size: 100%;
+  font-size: clamp(1.35rem, 4.6vw, 2.6rem);
+  text-wrap: balance;
+}
+
+.hero-accent {
+  margin: 0;
+  color: var(--acid-green);
+  font-size: var(--text-h3);
+}
+
+.hero-status {
+  margin: 0;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.hero-boot {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-overlay);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-4);
+  background: var(--bg);
+}
+
+.hero-skip {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+}
