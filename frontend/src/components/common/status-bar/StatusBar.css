@@ -1,0 +1,15 @@
+.status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-2);
+  padding-inline: var(--space-4);
+  color: var(--muted);
+  border-block-end: 1px solid var(--line);
+}
+
+.status-bar-slot {
+  color: var(--ink);
+}

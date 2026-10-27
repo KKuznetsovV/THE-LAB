@@ -1,0 +1,11 @@
+.pill-badge {
+  display: inline-block;
+  border-radius: var(--radius-pill);
+  padding-block: var(--space-1);
+  padding-inline: var(--space-3);
+  box-shadow: var(--pill-emboss);
+  color: var(--paper-ink);
+}
+
+.pill-badge--green { background: var(--acid-green); }
+.pill-badge--pink { background: var(--acid-pink); }

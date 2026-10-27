@@ -1,0 +1,55 @@
+.terminal-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+:lang(he) .terminal-button {
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.terminal-button--sm { padding-block: var(--space-2); padding-inline: var(--space-3); }
+.terminal-button--md { padding-block: var(--space-3); padding-inline: var(--space-4); }
+.terminal-button--lg { padding-block: var(--space-4); padding-inline: var(--space-6); font-size: var(--text-small); }
+
+.terminal-button--primary {
+  background: var(--acid-green);
+  color: var(--paper-ink);
+}
+
+.terminal-button--primary:hover {
+  background: var(--acid-pink);
+  color: var(--paper-ink);
+}
+
+.terminal-button--outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--acid-green);
+}
+
+.terminal-button--outline:hover {
+  color: var(--acid-pink);
+  border-color: var(--acid-pink);
+}
+
+.terminal-button--ghost {
+  background: transparent;
+  color: var(--ink);
+}
+
+.terminal-button--ghost:hover {
+  color: var(--acid-pink);
+}

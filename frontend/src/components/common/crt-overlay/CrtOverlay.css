@@ -1,0 +1,25 @@
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+  background-image: var(--scanlines);
+}
+
+.crt--flicker {
+  animation: crt-flicker 4.8s var(--ease) infinite;
+}
+
+@keyframes crt-flicker {
+  0%,
+  96%,
+  100% { opacity: 1; }
+  97% { opacity: 0.86; }
+  98% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crt--flicker {
+    animation: none;
+  }
+}

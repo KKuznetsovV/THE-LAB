@@ -1,0 +1,43 @@
+/*
+  Licensed font slots. This file is NOT imported.
+  Enable it by adding `@import "./fonts-licensed.css";` as the first line of
+  src/index.css after these files are in frontend/public/fonts/:
+    aktiv-grotesk-500.woff2
+    aktiv-grotesk-700.woff2
+    narkiss-yair-400.woff2
+    narkiss-yair-700.woff2
+  The families are already first in --font-head and --font-body, so no other
+  code change is required.
+*/
+
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("/fonts/aktiv-grotesk-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aktiv Grotesk";
+  src: url("/fonts/aktiv-grotesk-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Narkiss Yair";
+  src: url("/fonts/narkiss-yair-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Narkiss Yair";
+  src: url("/fonts/narkiss-yair-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

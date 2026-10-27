@@ -1,0 +1,14 @@
+.maze {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-base);
+  pointer-events: none;
+  background-repeat: repeat;
+  background-size: 320px;
+}
+
+@media (min-width: 900px) {
+  .maze {
+    background-attachment: fixed;
+  }
+}

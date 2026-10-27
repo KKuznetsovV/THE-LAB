@@ -1,0 +1,15 @@
+.paper-card {
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  color: var(--paper-ink);
+  background-image: var(--paper-grain);
+}
+
+.paper-card--powder { background-color: var(--powder-grey); }
+.paper-card--ash { background-color: var(--warm-ash); }
+
+.paper-card .section-header-kicker,
+.paper-card .section-header-ja,
+.paper-card .section-header-title {
+  color: var(--paper-ink);
+}
