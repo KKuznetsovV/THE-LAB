@@ -1,0 +1,16 @@
+{
+  "app": {
+    "name": "THE LAB media-service",
+    "jwtSecret": "dev-only-secret-change-me",
+    "corsOrigins": ["https://thelabtlv.com"]
+  },
+  "media": {
+    "endpoint": "http://minio:9000",
+    "publicEndpoint": "https://thelabtlv.com",
+    "bucket": "thelab-media",
+    "accessKeyId": "",
+    "secretAccessKey": "",
+    "publicBaseUrl": "https://thelabtlv.com/media",
+    "forcePathStyle": true
+  }
+}

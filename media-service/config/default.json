@@ -1,0 +1,18 @@
+{
+  "app": {
+    "port": 3106,
+    "name": "THE LAB media-service",
+    "jwtSecret": "dev-only-secret-change-me",
+    "corsOrigins": ["http://localhost:5173", "http://localhost:8080"]
+  },
+  "media": {
+    "endpoint": "http://localhost:9200",
+    "publicEndpoint": "http://localhost:9200",
+    "region": "us-east-1",
+    "bucket": "thelab-media",
+    "accessKeyId": "thelab",
+    "secretAccessKey": "change-me-minio",
+    "publicBaseUrl": "http://localhost:9200/thelab-media",
+    "forcePathStyle": true
+  }
+}

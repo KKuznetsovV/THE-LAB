@@ -1,0 +1,15 @@
+{
+  "app": {
+    "port": "THELAB_MEDIA_PORT",
+    "jwtSecret": "THELAB_JWT_SECRET",
+    "corsOrigins": "THELAB_CORS_ORIGINS"
+  },
+  "media": {
+    "endpoint": "THELAB_S3_ENDPOINT",
+    "publicEndpoint": "THELAB_S3_PUBLIC_ENDPOINT",
+    "bucket": "THELAB_S3_BUCKET",
+    "accessKeyId": "MINIO_ROOT_USER",
+    "secretAccessKey": "MINIO_ROOT_PASSWORD",
+    "publicBaseUrl": "THELAB_S3_PUBLIC_BASE_URL"
+  }
+}

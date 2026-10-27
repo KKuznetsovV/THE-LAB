@@ -50,3 +50,14 @@ cd identity-service
 npm install
 THELAB_ADMIN_EMAIL=owner@thelabtlv.com THELAB_ADMIN_PASSWORD=change-me-strong-password npm run dev
 ```
+
+## Media uploads (dev)
+
+```bash
+docker compose up -d minio
+cd media-service
+npm install
+npm run dev
+```
+
+MinIO is published on http://localhost:9200 (console http://localhost:9201). The media service listens on http://localhost:3106, creates the `thelab-media` bucket, and makes only `images/*` public. `POST /api/uploads/presign` and `DELETE /api/uploads` need an owner or editor JWT from the identity service.

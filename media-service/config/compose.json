@@ -1,0 +1,8 @@
+{
+  "app": { "name": "THE LAB media-service compose" },
+  "media": {
+    "endpoint": "http://minio:9000",
+    "publicEndpoint": "http://localhost:9200",
+    "publicBaseUrl": "http://localhost:8080/media"
+  }
+}
