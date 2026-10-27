@@ -71,7 +71,7 @@ thelab-web/
 
 ## Current Progress & Next Steps
 - [x] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
-- [ ] 01 Frontend scaffold (`feat/01-frontend-scaffold`)
+- [x] 01 Frontend scaffold (`feat/01-frontend-scaffold`)
 - [ ] 02 Design system & brand primitives (`feat/02-design-system`)
 - [ ] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
 - [ ] 04 Shared lib, DB, content-service read API (`feat/04-content-read-api`)
