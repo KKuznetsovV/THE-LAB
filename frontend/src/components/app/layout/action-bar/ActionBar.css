@@ -1,0 +1,45 @@
+.action-bar {
+  position: fixed;
+  inset-inline: 0;
+  inset-block-end: 0;
+  z-index: var(--z-header);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  padding-block-end: calc(var(--space-2) + env(safe-area-inset-bottom));
+  background: var(--bg);
+  border-block-start: 1px solid var(--line);
+}
+
+.action-bar .terminal-button {
+  inline-size: 100%;
+}
+
+.order-sheet {
+  position: fixed;
+  inset-inline: var(--space-3);
+  inset-block-end: calc(4.5rem + env(safe-area-inset-bottom));
+  z-index: var(--z-modal);
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.order-sheet a,
+.order-sheet-close {
+  color: var(--ink);
+  background: transparent;
+  font-family: var(--font-mono);
+  text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  .action-bar,
+  .order-sheet {
+    display: none;
+  }
+}

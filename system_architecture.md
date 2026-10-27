@@ -73,7 +73,7 @@ thelab-web/
 - [x] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
 - [x] 01 Frontend scaffold (`feat/01-frontend-scaffold`)
 - [x] 02 Design system & brand primitives (`feat/02-design-system`)
-- [ ] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
+- [x] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
 - [ ] 04 Shared lib, DB, content-service read API (`feat/04-content-read-api`)
 - [ ] 05 identity-service & admin auth (`feat/05-identity-service`)
 - [ ] 06 content-service write API (`feat/06-content-write-api`)

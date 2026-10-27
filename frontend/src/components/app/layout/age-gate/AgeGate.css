@@ -1,0 +1,24 @@
+.age-gate {
+  margin: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  padding: var(--space-6);
+  max-inline-size: 28rem;
+}
+
+.age-gate::backdrop {
+  background: var(--bg);
+}
+
+.age-gate-actions {
+  display: flex;
+  gap: var(--space-3);
+  margin-block-start: var(--space-5);
+}
+
+.age-gate h2,
+.age-gate p {
+  margin-block-end: var(--space-3);
+}

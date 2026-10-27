@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentType } from 'react';
+import { useEffect, useState, type ComponentType, type ReactNode } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from '../../../about/About';
 import Archive from '../../../archive/Archive';
@@ -10,6 +10,7 @@ import Menu from '../../../menu/Menu';
 import TakeMeHome from '../../../take-me-home/TakeMeHome';
 import Visit from '../../../visit/Visit';
 import NotFound from '../not-found/NotFound';
+import LocaleLayout from '../locale-layout/LocaleLayout';
 
 function DevStyleguide() {
   const [Page, setPage] = useState<ComponentType | null>(null);
@@ -28,22 +29,35 @@ function DevStyleguide() {
   return <Page />;
 }
 
+function pages(): ReactNode {
+  return (
+    <>
+      <Route index element={<Home />} />
+      <Route path="menu" element={<Menu />} />
+      <Route path="menu/:code" element={<Menu />} />
+      <Route path="take-me-home" element={<TakeMeHome />} />
+      <Route path="visit" element={<Visit />} />
+      <Route path="events" element={<Events />} />
+      <Route path="events/:slug" element={<Events />} />
+      <Route path="archive" element={<Archive />} />
+      <Route path="about" element={<About />} />
+      <Route path="accessibility" element={<Accessibility />} />
+      <Route path="privacy" element={<Privacy />} />
+      <Route path="*" element={<NotFound />} />
+    </>
+  );
+}
+
 export default function Main() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/menu" element={<Menu />} />
-      <Route path="/menu/:code" element={<Menu />} />
-      <Route path="/take-me-home" element={<TakeMeHome />} />
-      <Route path="/visit" element={<Visit />} />
-      <Route path="/events" element={<Events />} />
-      <Route path="/events/:slug" element={<Events />} />
-      <Route path="/archive" element={<Archive />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/accessibility" element={<Accessibility />} />
-      <Route path="/privacy" element={<Privacy />} />
-      {import.meta.env.DEV ? <Route path="/styleguide" element={<DevStyleguide />} /> : null}
-      <Route path="*" element={<NotFound />} />
+      {import.meta.env.DEV ? <Route path="styleguide" element={<DevStyleguide />} /> : null}
+      <Route path="en" element={<LocaleLayout locale="en" />}>
+        {pages()}
+      </Route>
+      <Route element={<LocaleLayout locale="he" />}>
+        {pages()}
+      </Route>
     </Routes>
   );
 }
