@@ -1,0 +1,15 @@
+{
+  "app": {
+    "port": "THELAB_IDENTITY_PORT",
+    "jwtSecret": "THELAB_JWT_SECRET",
+    "adminEmail": "THELAB_ADMIN_EMAIL",
+    "adminPassword": "THELAB_ADMIN_PASSWORD",
+    "corsOrigins": "THELAB_CORS_ORIGINS"
+  },
+  "db": {
+    "host": "THELAB_DB_HOST",
+    "port": "THELAB_DB_PORT",
+    "username": "THELAB_DB_USER",
+    "password": "THELAB_DB_PASSWORD"
+  }
+}
