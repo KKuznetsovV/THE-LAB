@@ -79,7 +79,7 @@ thelab-web/
 - [x] 05 identity-service & admin auth (`feat/05-identity-service`)
 - [x] 06 content-service write API (`feat/06-content-write-api`)
 - [x] 07 media-service & MinIO uploads (`feat/07-media-service`)
-- [ ] 08 Frontend data layer & Home page (`feat/08-home`)
+- [x] 08 Frontend data layer & Home page (`feat/08-home`)
 - [ ] 09 Menu page (`feat/09-menu`)
 - [ ] 10 Take Me Home, Visit/Book, Events, Archive, About, legal pages (`feat/10-pages`)
 - [ ] 11 Admin panel (`feat/11-admin`)
