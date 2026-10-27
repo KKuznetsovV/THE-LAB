@@ -1,0 +1,41 @@
+---
+description: Git branch-per-step workflow with mandatory build gate, commit, push and merge to main
+globs:
+alwaysApply: true
+---
+
+# Step workflow (mandatory for every step)
+
+## Step start
+```bash
+git checkout main
+git pull --ff-only origin main
+git checkout -b <branch-from-the-prompt>      # e.g. feat/03-layout-i18n
+```
+If the working tree is dirty, stop and report instead of stashing or discarding anything.
+
+## During the step
+- Commit in small logical chunks with Conventional Commits: `feat(frontend): …`, `feat(content-service): …`, `fix(…)`, `chore(…)`, `docs(…)`, `refactor(…)`, `test(…)`.
+- Install dependencies inside the package folder that uses them (no root `node_modules`). Commit lockfiles.
+
+## Step wrap-up (do not skip, do not reorder)
+1. `node scripts/check.mjs` from the repo root → must exit 0. If it fails, fix the cause and re-run. Never commit a red build, never merge a red build, never weaken lint/TS settings to make it pass.
+2. Update `system_architecture.md`: tick the step in "Current Progress & Next Steps", add any new Established Decision, update ports/routes tables if they changed. Update `README.md` if run instructions changed.
+3. `git add -A && git commit -m "<type>(<scope>): <summary>"` (skip if everything is already committed).
+4. `git push -u origin <branch>`
+5. Merge:
+   ```bash
+   git checkout main
+   git pull --ff-only origin main
+   git merge --no-ff <branch> -m "merge: step <NN> <title>"
+   node scripts/check.mjs          # gate again on main
+   git push origin main
+   ```
+   If the merge conflicts or the gate fails on main, fix on the step branch, push, and merge again. Never force-push `main`.
+6. Keep the remote branch (portfolio history). Delete only the local one: `git branch -d <branch>`.
+7. Reply with a STEP REPORT:
+   - Branch + merge commit hash
+   - Files/folders added or changed (short tree)
+   - Commands run and their results (build, lint, curl checks)
+   - Anything stubbed, skipped, or needing owner input
+   - What I should check manually in the browser

@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# builds (lib/dist is committed on purpose — see system_architecture.md)
+dist/
+!lib/dist/
+*.tsbuildinfo
+coverage/
+
+# env & secrets
+.env
+.env.local
+.env.*.local
+
+# local data
+.data/
+minio-data/
+mysql-data/
+
+# reports
+playwright-report/
+test-results/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/*
+!.vscode/extensions.json
+.idea/
