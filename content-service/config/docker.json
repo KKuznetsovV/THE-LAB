@@ -1,0 +1,4 @@
+{
+  "app": { "name": "THE LAB content-service docker" },
+  "db": { "host": "database", "port": 3306 }
+}

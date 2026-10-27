@@ -1,0 +1,17 @@
+services:
+  database:
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: thelab
+    ports:
+      - "3307:3306"
+    volumes:
+      - thelab-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pthelab", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  thelab-mysql:

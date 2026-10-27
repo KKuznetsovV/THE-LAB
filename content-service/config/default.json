@@ -1,0 +1,15 @@
+{
+  "app": {
+    "port": 3109,
+    "name": "THE LAB content-service",
+    "corsOrigins": ["http://localhost:5173", "http://localhost:8080"]
+  },
+  "db": {
+    "host": "localhost",
+    "port": 3307,
+    "username": "root",
+    "password": "thelab",
+    "database": "thelab_content",
+    "dialectOptions": { "charset": "utf8mb4" }
+  }
+}

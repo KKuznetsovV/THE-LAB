@@ -1,0 +1,4 @@
+{
+  "app": { "name": "THE LAB content-service compose" },
+  "db": { "host": "database", "port": 3306 }
+}

@@ -1,0 +1,13 @@
+{
+  "app": {
+    "name": "THE LAB content-service",
+    "corsOrigins": ["https://thelabtlv.com"]
+  },
+  "db": {
+    "host": "database",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "thelab_content"
+  }
+}
