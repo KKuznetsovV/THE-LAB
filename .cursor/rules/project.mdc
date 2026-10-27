@@ -1,0 +1,23 @@
+---
+description: THE LAB website — always-on project context, stack and coding conventions
+globs:
+alwaysApply: true
+---
+
+# THE LAB (thelabtlv.com) — project rules
+
+- Before writing any code, read `system_architecture.md`, `docs/BRAND.md` and `docs/CONTENT.md`. Follow the stack and the "Established Decisions" there exactly. If a task would break a decision, stop and explain instead of deviating.
+- Architecture mirrors the BetterX repo (github.com/KKuznetsovV/BetterX): one folder per deployable, `config/` + `src/{app.ts,controllers,routers,middlewares,models,db}` per service, React SPA in `frontend/src/{components,hooks,redux,services,utils,i18n}`.
+- Work only on the scope of the current step. Do not start the next step's features. Do not refactor unrelated code.
+- Keep responses concise. No pleasantries. When done, follow `.cursor/rules/workflow.mdc` → "Step wrap-up".
+
+## Code conventions
+- TypeScript strict everywhere. No `any`, no `@ts-ignore`, no non-null assertions on network data. Use `unknown` + narrowing; typed Axios error extraction via `getErrorMessage(e: unknown)`.
+- Shared enums/constants/DTOs live in `lib/` (`@thelab/lib`). Never duplicate a DTO in a service or the frontend.
+- Services: Express 5 routers per resource; Joi validators in `controllers/<resource>/validator.ts`; controllers `async (req, res, next)` with `try/catch → next(e)`; errors as `{ status, message }`; shared middlewares `validation.ts`, `auth-enforce.ts`, `require-role.ts`, `not-found.ts`, `error/log-error.ts`, `error/error-responder.ts`.
+- Frontend: function components; one folder per component with `Component.tsx` + `Component.css`; models in `src/components/models`; data access only through classes in `src/services` (public) or `src/services/auth-aware` (admin) — components never call axios directly; global state in Redux Toolkit slices; forms with React Hook Form.
+- Styling: only tokens from `frontend/src/index.css` (defined from `docs/BRAND.md`). No hard-coded hex colours or font families in component CSS. CSS logical properties only (RTL-safe). Square corners by default (terminal look); pills are fully rounded.
+- Every user-visible string goes through i18next (`he` + `en`). Cocktail names stay in English in both locales. Japanese accents are decorative: `lang="ja"` and `aria-hidden="true"` when they duplicate visible text.
+- Accessibility (WCAG 2.1 AA / IS 5568): semantic HTML, visible focus, keyboard support, labelled controls, alt text, `prefers-reduced-motion` respected, external links announce "opens in a new tab".
+- Never commit secrets. New env vars go into `.env.example` and the service's `custom-environment-variables.json`.
+- Never mention or display the old name "7to1" in the UI (only in redirects/docs).
