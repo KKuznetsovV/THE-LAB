@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { BottleDto, CocktailDto, EventDto, GalleryImageDto } from '@thelab/lib';
+import type { BottleDto, CocktailDto, EventDto, GalleryImageDto, SpiritGroupDto } from '@thelab/lib';
 import { contentService } from '../services/public/ContentService';
 import { getErrorMessage } from '../utils/errors';
 import type { LoadStatus } from './settings-slice';
@@ -60,6 +60,7 @@ const menu = listSlice<CocktailDto>('menu', () => contentService.getCocktails())
 const bottles = listSlice<BottleDto>('bottles', () => contentService.getBottles());
 const events = listSlice<EventDto>('events', () => contentService.getEvents('upcoming'));
 const gallery = listSlice<GalleryImageDto>('gallery', () => contentService.getGallery());
+const spirits = listSlice<SpiritGroupDto>('spirits', () => contentService.getSpirits());
 
 export const menuReducer = menu.reducer;
 export const loadMenu = menu.load;
@@ -69,6 +70,8 @@ export const eventsReducer = events.reducer;
 export const loadEvents = events.load;
 export const galleryReducer = gallery.reducer;
 export const loadGallery = gallery.load;
+export const spiritsReducer = spirits.reducer;
+export const loadSpirits = spirits.load;
 
 export function selectMenu(state: { menu: ListState<CocktailDto> }): ListState<CocktailDto> {
   return state.menu;
@@ -84,4 +87,8 @@ export function selectEvents(state: { events: ListState<EventDto> }): ListState<
 
 export function selectGallery(state: { gallery: ListState<GalleryImageDto> }): ListState<GalleryImageDto> {
   return state.gallery;
+}
+
+export function selectSpirits(state: { spirits: ListState<SpiritGroupDto> }): ListState<SpiritGroupDto> {
+  return state.spirits;
 }

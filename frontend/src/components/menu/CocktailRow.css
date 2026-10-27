@@ -1,0 +1,50 @@
+.cocktail-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: inherit;
+  text-decoration: none;
+}
+
+.cocktail-row-copy,
+.cocktail-row-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.cocktail-row-copy {
+  flex: 1;
+}
+
+.cocktail-row-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: var(--text-h3);
+}
+
+.cocktail-row-meta {
+  align-items: end;
+}
+
+.cocktail-row-flavours,
+.cocktail-row-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: var(--space-2);
+}
+
+@media (max-width: 699px) {
+  .cocktail-row {
+    flex-wrap: wrap;
+  }
+
+  .cocktail-row-meta {
+    inline-size: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

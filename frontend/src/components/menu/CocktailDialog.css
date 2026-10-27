@@ -1,0 +1,44 @@
+.cocktail-dialog {
+  inline-size: min(40rem, calc(100vw - 2rem));
+  max-block-size: calc(100vh - 2rem);
+  margin: auto;
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--powder-grey);
+  color: var(--paper-ink);
+}
+
+.cocktail-dialog::backdrop {
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+}
+
+.cocktail-dialog-close {
+  background: transparent;
+  color: var(--paper-ink);
+  border: 1px solid var(--paper-ink);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+}
+
+.cocktail-dialog-body {
+  display: grid;
+  gap: var(--space-4);
+  margin-block-start: var(--space-4);
+}
+
+.cocktail-dialog img {
+  inline-size: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.cocktail-dialog-flavours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.cocktail-dialog a {
+  color: inherit;
+}

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { bottlesReducer, eventsReducer, galleryReducer, menuReducer } from './collections';
+import { bottlesReducer, eventsReducer, galleryReducer, menuReducer, spiritsReducer } from './collections';
 import settingsReducer from './settings-slice';
 
 const store = configureStore({
@@ -9,6 +9,7 @@ const store = configureStore({
     bottles: bottlesReducer,
     events: eventsReducer,
     gallery: galleryReducer,
+    spirits: spiritsReducer,
   },
 });
 
