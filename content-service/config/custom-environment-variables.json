@@ -1,7 +1,9 @@
 {
   "app": {
     "port": "THELAB_CONTENT_PORT",
-    "corsOrigins": "THELAB_CORS_ORIGINS"
+    "corsOrigins": "THELAB_CORS_ORIGINS",
+    "jwtSecret": "THELAB_JWT_SECRET",
+    "mediaBaseUrl": "THELAB_S3_PUBLIC_BASE_URL"
   },
   "db": {
     "host": "THELAB_DB_HOST",

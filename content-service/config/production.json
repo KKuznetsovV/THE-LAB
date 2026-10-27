@@ -1,7 +1,9 @@
 {
   "app": {
     "name": "THE LAB content-service",
-    "corsOrigins": ["https://thelabtlv.com"]
+    "corsOrigins": ["https://thelabtlv.com"],
+    "jwtSecret": "dev-only-secret-change-me",
+    "mediaBaseUrl": "https://thelabtlv.com/media"
   },
   "db": {
     "host": "database",

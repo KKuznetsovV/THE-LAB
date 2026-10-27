@@ -8,6 +8,7 @@ import { seedContentIfEmpty } from './db/seed-loader';
 import logError from './middlewares/error/log-error';
 import respondError from './middlewares/error/error-responder';
 import notFound from './middlewares/not-found';
+import { optionalAuth } from './middlewares/auth';
 import bottlesRouter from './routers/bottles';
 import cocktailsRouter from './routers/cocktails';
 import eventsRouter from './routers/events';
@@ -28,6 +29,7 @@ void (async () => {
   app.use(helmet());
   app.use(cors({ origin: corsOrigins() }));
   app.use(express.json());
+  app.use(optionalAuth);
   app.use('/api/health', healthRouter);
   app.use('/api/cocktails', cocktailsRouter);
   app.use('/api/bottles', bottlesRouter);
