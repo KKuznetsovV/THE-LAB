@@ -1,14 +1,29 @@
+x-app-env: &app-env
+  THELAB_DB_HOST: ${THELAB_DB_HOST:-database}
+  THELAB_DB_PORT: ${THELAB_DB_PORT:-3306}
+  THELAB_DB_PASSWORD: ${THELAB_DB_PASSWORD:-thelab}
+  THELAB_JWT_SECRET: ${THELAB_JWT_SECRET:-dev-only-secret-change-me}
+  THELAB_ADMIN_EMAIL: ${THELAB_ADMIN_EMAIL:-owner@thelabtlv.com}
+  THELAB_ADMIN_PASSWORD: ${THELAB_ADMIN_PASSWORD:-change-me-strong-password}
+  THELAB_CORS_ORIGINS: ${THELAB_CORS_ORIGINS:-http://localhost:5173,http://localhost:8080}
+
+x-node-health: &node-health
+  interval: 5s
+  timeout: 5s
+  retries: 20
+  start_period: 25s
+
 services:
   database:
     build: ./db
     environment:
-      MYSQL_ROOT_PASSWORD: thelab
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-thelab}
     ports:
       - "3307:3306"
     volumes:
       - thelab-mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pthelab", "--silent"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD:-thelab}", "--silent"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -29,6 +44,72 @@ services:
       interval: 5s
       timeout: 5s
       retries: 20
+
+  identity-service:
+    build:
+      context: .
+      dockerfile: identity-service/Dockerfile
+    environment:
+      <<: *app-env
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      <<: *node-health
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3110/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+
+  content-service:
+    build:
+      context: .
+      dockerfile: content-service/Dockerfile
+    environment:
+      <<: *app-env
+      THELAB_S3_PUBLIC_BASE_URL: ${THELAB_S3_PUBLIC_BASE_URL:-http://localhost:8080/media}
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      <<: *node-health
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3109/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+
+  media-service:
+    build:
+      context: .
+      dockerfile: media-service/Dockerfile
+    environment:
+      <<: *app-env
+      THELAB_S3_ENDPOINT: ${THELAB_S3_ENDPOINT:-http://minio:9000}
+      THELAB_S3_PUBLIC_ENDPOINT: ${THELAB_S3_PUBLIC_ENDPOINT:-http://localhost:9200}
+      THELAB_S3_BUCKET: ${THELAB_S3_BUCKET:-thelab-media}
+      THELAB_S3_PUBLIC_BASE_URL: ${THELAB_S3_PUBLIC_BASE_URL:-http://localhost:8080/media}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-thelab}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-change-me-minio}
+    depends_on:
+      minio:
+        condition: service_healthy
+    healthcheck:
+      <<: *node-health
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3106/api/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      identity-service:
+        condition: service_healthy
+      content-service:
+        condition: service_healthy
+      media-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 5s
 
 volumes:
   thelab-mysql:

@@ -27,6 +27,9 @@ void (async () => {
   app.use(helmet());
   app.use(cors({ origin: corsOrigins() }));
   app.use(express.json());
+  app.get('/api/health', (_req, res) => {
+    res.json({ ok: true });
+  });
   app.use('/api/auth', authRouter);
   app.use('/api/admins', adminsRouter);
   app.use(notFound);

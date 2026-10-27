@@ -102,7 +102,10 @@ function outputFile(route) {
 }
 
 const server = await startServer();
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({
+  headless: true,
+  ...(process.env.PLAYWRIGHT_USE_BUNDLED === '1' ? {} : { channel: 'chrome' }),
+});
 const context = await browser.newContext();
 await context.addInitScript(() => {
   localStorage.setItem('thelab-age-ok', 'yes');

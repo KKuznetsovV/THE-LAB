@@ -1,0 +1,112 @@
+x-app-env: &app-env
+  THELAB_DB_HOST: ${THELAB_DB_HOST:-database}
+  THELAB_DB_PORT: ${THELAB_DB_PORT:-3306}
+  THELAB_DB_USER: ${THELAB_DB_USER:-root}
+  THELAB_DB_PASSWORD: ${THELAB_DB_PASSWORD:?set THELAB_DB_PASSWORD}
+  THELAB_JWT_SECRET: ${THELAB_JWT_SECRET:?set THELAB_JWT_SECRET}
+  THELAB_ADMIN_EMAIL: ${THELAB_ADMIN_EMAIL:-owner@thelabtlv.com}
+  THELAB_ADMIN_PASSWORD: ${THELAB_ADMIN_PASSWORD:?set THELAB_ADMIN_PASSWORD}
+  THELAB_CORS_ORIGINS: ${THELAB_CORS_ORIGINS:-https://thelabtlv.com}
+
+x-restart: &restart
+  restart: unless-stopped
+
+services:
+  database:
+    <<: *restart
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?set MYSQL_ROOT_PASSWORD}
+    volumes:
+      - thelab-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD}", "--silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  minio:
+    <<: *restart
+    image: minio/minio
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?set MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD}
+    volumes:
+      - thelab-minio:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  identity-service:
+    <<: *restart
+    image: kuzmass/thelab-identity-service:latest
+    command: ["npm", "run", "production"]
+    environment:
+      <<: *app-env
+    depends_on:
+      database:
+        condition: service_healthy
+
+  content-service:
+    <<: *restart
+    image: kuzmass/thelab-content-service:latest
+    command: ["npm", "run", "production"]
+    environment:
+      <<: *app-env
+      THELAB_S3_PUBLIC_BASE_URL: ${THELAB_S3_PUBLIC_BASE_URL:-https://thelabtlv.com/media}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  media-service:
+    <<: *restart
+    image: kuzmass/thelab-media-service:latest
+    command: ["npm", "run", "production"]
+    environment:
+      <<: *app-env
+      THELAB_S3_ENDPOINT: ${THELAB_S3_ENDPOINT:-http://minio:9000}
+      THELAB_S3_PUBLIC_ENDPOINT: ${THELAB_S3_PUBLIC_ENDPOINT:-https://thelabtlv.com}
+      THELAB_S3_BUCKET: ${THELAB_S3_BUCKET:-thelab-media}
+      THELAB_S3_PUBLIC_BASE_URL: ${THELAB_S3_PUBLIC_BASE_URL:-https://thelabtlv.com/media}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:?set MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?set MINIO_ROOT_PASSWORD}
+    depends_on:
+      minio:
+        condition: service_healthy
+
+  frontend:
+    <<: *restart
+    image: kuzmass/thelab-frontend:latest
+    expose:
+      - "80"
+    depends_on:
+      identity-service:
+        condition: service_started
+      content-service:
+        condition: service_started
+      media-service:
+        condition: service_started
+
+  caddy:
+    <<: *restart
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      CADDY_EMAIL: ${CADDY_EMAIL:-owner@thelabtlv.com}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - frontend
+
+volumes:
+  thelab-mysql:
+  thelab-minio:
+  caddy-data:
+  caddy-config:
