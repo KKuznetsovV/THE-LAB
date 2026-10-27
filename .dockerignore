@@ -1,0 +1,8 @@
+.git
+**/node_modules
+**/dist
+!lib/dist/
+!lib/dist/**
+.env
+docs/lighthouse
+playwright-report
