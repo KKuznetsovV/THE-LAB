@@ -87,7 +87,7 @@ thelab-web/
 - [x] 11 Admin panel (`feat/11-admin`)
 - [x] 12 SEO, performance, accessibility (`feat/12-seo-perf-a11y`)
 - [x] 13 Docker, gateway, production compose (`chore/13-docker-deploy`)
-- [ ] 14 QA, docs, v1.0.0 (`chore/14-launch`)
+- [x] 14 QA, docs, v1.0.0 (`chore/14-launch`)
 
 ## Residual Risk / Open Items (owner)
 - Brand fonts: Aktiv Grotesk (commercial) and Narkiss Yair (TRIAL licence in the brand sheet) must be licensed for web before launch; stand-ins are used until then.
