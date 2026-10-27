@@ -70,7 +70,7 @@ thelab-web/
 15. Git: one branch per step (`<type>/<NN>-<slug>`), build gate (`node scripts/check.mjs`) must be green before commit and before merge, `--no-ff` merges into `main`, remote step branches are kept for history. See `.cursor/rules/workflow.mdc`.
 
 ## Current Progress & Next Steps
-- [ ] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
+- [x] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
 - [ ] 01 Frontend scaffold (`feat/01-frontend-scaffold`)
 - [ ] 02 Design system & brand primitives (`feat/02-design-system`)
 - [ ] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
