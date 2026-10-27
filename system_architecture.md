@@ -68,6 +68,7 @@ thelab-web/
 13. Images are uploaded straight from the browser to MinIO with presigned POST policies from media-service (type whitelist, 8 MB cap); records store the public URL plus alt text in both languages.
 14. Prices are integers in ILS. UI renders them in brackets with the mono font: `[₪64]` (EN) / `[64₪]` (HE).
 15. Git: one branch per step (`<type>/<NN>-<slug>`), build gate (`node scripts/check.mjs`) must be green before commit and before merge, `--no-ff` merges into `main`, remote step branches are kept for history. See `.cursor/rules/workflow.mdc`.
+16. media-service does not call `PutBucketCors` when the endpoint is MinIO (`minio`, port 9000, or host port 9200). MinIO does not implement that call the way AWS does. On real S3 the bucket must allow the public site origins to `POST`, `GET`, and `HEAD`, accept `Content-Type` plus the presigned POST fields, and expose `ETag`. Public reads stay limited to `images/*`.
 
 ## Current Progress & Next Steps
 - [x] 00 Bootstrap — repo, rules, build gate, CI (`chore/00-bootstrap`)
@@ -77,7 +78,7 @@ thelab-web/
 - [x] 04 Shared lib, DB, content-service read API (`feat/04-content-read-api`)
 - [x] 05 identity-service & admin auth (`feat/05-identity-service`)
 - [x] 06 content-service write API (`feat/06-content-write-api`)
-- [ ] 07 media-service & MinIO uploads (`feat/07-media-service`)
+- [x] 07 media-service & MinIO uploads (`feat/07-media-service`)
 - [ ] 08 Frontend data layer & Home page (`feat/08-home`)
 - [ ] 09 Menu page (`feat/09-menu`)
 - [ ] 10 Take Me Home, Visit/Book, Events, Archive, About, legal pages (`feat/10-pages`)
