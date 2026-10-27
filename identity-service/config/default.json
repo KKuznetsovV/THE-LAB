@@ -1,0 +1,19 @@
+{
+  "app": {
+    "port": 3110,
+    "name": "THE LAB identity-service",
+    "jwtSecret": "dev-only-secret-change-me",
+    "jwtExpiresIn": "8h",
+    "adminEmail": "",
+    "adminPassword": "",
+    "corsOrigins": ["http://localhost:5173", "http://localhost:8080"]
+  },
+  "db": {
+    "host": "localhost",
+    "port": 3307,
+    "username": "root",
+    "password": "thelab",
+    "database": "thelab_identity",
+    "dialectOptions": { "charset": "utf8mb4" }
+  }
+}

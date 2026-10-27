@@ -75,7 +75,7 @@ thelab-web/
 - [x] 02 Design system & brand primitives (`feat/02-design-system`)
 - [x] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
 - [x] 04 Shared lib, DB, content-service read API (`feat/04-content-read-api`)
-- [ ] 05 identity-service & admin auth (`feat/05-identity-service`)
+- [x] 05 identity-service & admin auth (`feat/05-identity-service`)
 - [ ] 06 content-service write API (`feat/06-content-write-api`)
 - [ ] 07 media-service & MinIO uploads (`feat/07-media-service`)
 - [ ] 08 Frontend data layer & Home page (`feat/08-home`)

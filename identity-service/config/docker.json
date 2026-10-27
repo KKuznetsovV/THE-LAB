@@ -1,0 +1,4 @@
+{
+  "app": { "name": "THE LAB identity-service docker" },
+  "db": { "host": "database", "port": 3306 }
+}
