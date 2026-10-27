@@ -24,7 +24,7 @@ Folder layout and code conventions mirror the BetterX project
 |---|---|---|---|
 | `frontend` | 5173 dev / 80 in container (host 8080) | Public site (HE default at `/`, EN at `/en`), admin panel (`/admin`), nginx gateway | — |
 | `identity-service` | 3110 | Admin users, login, JWT issuing | `/api/auth/*`, `/api/admins/*` |
-| `content-service` | 3109 | Menu, bottles, spirits, events, gallery, hours, site settings | `/api/cocktails`, `/api/bottles`, `/api/spirits`, `/api/events`, `/api/gallery`, `/api/hours`, `/api/settings`, `/api/health` |
+| `content-service` | 3109 | Menu, bottles, spirits, events, gallery, hours, site settings | public GET `/api/cocktails`, `/api/bottles`, `/api/spirits`, `/api/events`, `/api/gallery`, `/api/hours`, `/api/settings`, `/api/health`; admin writes on the same paths |
 | `media-service` | 3106 | Presigned image uploads to MinIO | `/api/uploads/*` |
 | `database` | 3306 (host 3307) | MySQL 8, schemas `thelab_identity`, `thelab_content` | — |
 | `minio` | 9000/9001 (host 9200/9201) | Object storage, bucket `thelab-media` (public-read `images/*`) | served via gateway at `/media/*` |
@@ -76,7 +76,7 @@ thelab-web/
 - [x] 03 Layout, i18n/RTL, age gate (`feat/03-layout-i18n`)
 - [x] 04 Shared lib, DB, content-service read API (`feat/04-content-read-api`)
 - [x] 05 identity-service & admin auth (`feat/05-identity-service`)
-- [ ] 06 content-service write API (`feat/06-content-write-api`)
+- [x] 06 content-service write API (`feat/06-content-write-api`)
 - [ ] 07 media-service & MinIO uploads (`feat/07-media-service`)
 - [ ] 08 Frontend data layer & Home page (`feat/08-home`)
 - [ ] 09 Menu page (`feat/09-menu`)

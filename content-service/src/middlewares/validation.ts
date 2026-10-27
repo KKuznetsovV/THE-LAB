@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from 'express';
-import type { ObjectSchema } from 'joi';
+import type { Schema } from 'joi';
 
 type Validators = {
-  body?: ObjectSchema;
-  params?: ObjectSchema;
-  query?: ObjectSchema;
+  body?: Schema;
+  params?: Schema;
+  query?: Schema;
 };
 
 function messageOf(error: unknown): string {

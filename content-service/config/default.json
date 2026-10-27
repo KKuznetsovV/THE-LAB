@@ -2,7 +2,9 @@
   "app": {
     "port": 3109,
     "name": "THE LAB content-service",
-    "corsOrigins": ["http://localhost:5173", "http://localhost:8080"]
+    "corsOrigins": ["http://localhost:5173", "http://localhost:8080"],
+    "jwtSecret": "dev-only-secret-change-me",
+    "mediaBaseUrl": "http://localhost:9200/thelab-media"
   },
   "db": {
     "host": "localhost",
