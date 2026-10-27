@@ -6,8 +6,9 @@ import StatusBar from '../../../common/status-bar/StatusBar';
 import TerminalButton from '../../../common/terminal-button/TerminalButton';
 import { useDelivery } from '../../../../hooks/use-delivery';
 import { useLocalizedPath } from '../../../../i18n/locale';
+import { useAppSelector } from '../../../../redux/hooks';
+import { selectHours, selectSettings } from '../../../../redux/settings-slice';
 import { isOpenNow, nextChange } from '../../../../utils/hours';
-import { defaultHours, siteDefaults } from '../../../../utils/site-defaults';
 import LanguageSwitch from '../language-switch/LanguageSwitch';
 import './Header.css';
 
@@ -33,6 +34,8 @@ export default function Header() {
   const { t } = useTranslation();
   const localize = useLocalizedPath();
   const { order } = useDelivery();
+  const settings = useAppSelector(selectSettings);
+  const hours = useAppSelector(selectHours);
   const [compact, setCompact] = useState(() => window.scrollY > 8);
   const [menuOpen, setMenuOpen] = useState(false);
   const [now, setNow] = useState(() => new Date());
@@ -48,8 +51,8 @@ export default function Header() {
     };
   }, []);
 
-  const open = isOpenNow(defaultHours, now);
-  const change = nextChange(defaultHours, now);
+  const open = isOpenNow(hours, now);
+  const change = nextChange(hours, now);
   const time = change ? formatHm(change.at) : '';
   const status = open ? t('common.openUntil', { time }) : t('common.closedOpens', { time });
 
@@ -67,7 +70,7 @@ export default function Header() {
         </nav>
         <LanguageSwitch />
         <div className="site-header-actions">
-          <TerminalButton href={siteDefaults.reservationUrl} newTabLabel={t('common.opensNewTab')}>
+          <TerminalButton href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
             {t('common.book')}
           </TerminalButton>
           <TerminalButton variant="outline" onClick={order}>{t('common.order')}</TerminalButton>

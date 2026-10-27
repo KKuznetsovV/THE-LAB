@@ -1,5 +1,6 @@
 import { createContext, useContext, useMemo, useState } from 'react';
-import { siteDefaults } from '../utils/site-defaults';
+import { useAppSelector } from '../redux/hooks';
+import { selectSettings } from '../redux/settings-slice';
 
 export type DeliveryChoice = { id: 'beecomm' | 'wolt'; url: string };
 
@@ -14,12 +15,13 @@ export const DeliveryContext = createContext<DeliveryValue | null>(null);
 
 export function useDeliveryState(): DeliveryValue {
   const [sheetOpen, setSheetOpen] = useState(false);
+  const settings = useAppSelector(selectSettings);
   const providers = useMemo(() => {
     const list: DeliveryChoice[] = [];
-    if (siteDefaults.deliveryUrl) list.push({ id: 'beecomm', url: siteDefaults.deliveryUrl });
-    if (siteDefaults.woltUrl) list.push({ id: 'wolt', url: siteDefaults.woltUrl });
+    if (settings.deliveryUrl) list.push({ id: 'beecomm', url: settings.deliveryUrl });
+    if (settings.woltUrl) list.push({ id: 'wolt', url: settings.woltUrl });
     return list;
-  }, []);
+  }, [settings.deliveryUrl, settings.woltUrl]);
 
   function order(): void {
     const only = providers[0];

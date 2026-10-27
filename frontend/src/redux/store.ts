@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-function rootReducer(state: Record<string, never> = {}): Record<string, never> {
-  return state;
-}
+import { bottlesReducer, eventsReducer, galleryReducer, menuReducer } from './collections';
+import settingsReducer from './settings-slice';
 
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    settings: settingsReducer,
+    menu: menuReducer,
+    bottles: bottlesReducer,
+    events: eventsReducer,
+    gallery: galleryReducer,
+  },
 });
 
 export default store;

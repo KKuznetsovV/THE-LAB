@@ -1,3 +1,4 @@
+import type { OpeningHoursDto, SiteSettingsDto } from '@thelab/lib';
 import type { OpeningDay } from './hours';
 
 export const defaultHours: OpeningDay[] = [
@@ -28,3 +29,36 @@ export const siteDefaults = {
   alcoholWarningHe: 'אזהרה: צריכה מופרזת של אלכוהול מסכנת חיים',
   alcoholWarningEn: 'Warning: excessive alcohol consumption is dangerous to your health',
 };
+
+export const fallbackSettings: SiteSettingsDto = {
+  id: 'main',
+  reservationUrl: siteDefaults.reservationUrl,
+  reservationUrlAlt: '',
+  deliveryUrl: siteDefaults.deliveryUrl,
+  woltUrl: siteDefaults.woltUrl,
+  privateEventsUrl: siteDefaults.privateEventsUrl,
+  giftCardUrl: siteDefaults.giftCardUrl,
+  instagramUrl: siteDefaults.instagramUrl,
+  mapsUrl: siteDefaults.mapsUrl,
+  phone: siteDefaults.phoneDisplay,
+  email: '',
+  addressHe: siteDefaults.addressHe,
+  addressEn: siteDefaults.addressEn,
+  alcoholWarningHe: siteDefaults.alcoholWarningHe,
+  alcoholWarningEn: siteDefaults.alcoholWarningEn,
+  accessibilityCoordinatorName: '',
+  accessibilityCoordinatorPhone: '',
+  accessibilityCoordinatorEmail: '',
+  lastAccessibilityAudit: null,
+  happyHour: { startsAt: '18:00', endsAt: '20:00', discountPercent: 50 },
+};
+
+export const fallbackHours: OpeningHoursDto[] = defaultHours;
+
+export function telHref(phone: string): string {
+  const trimmed = phone.trim();
+  if (trimmed.startsWith('+')) return `tel:${trimmed.replace(/[^\d+]/g, '')}`;
+  const digits = trimmed.replace(/\D/g, '');
+  if (digits.startsWith('0')) return `tel:+972${digits.slice(1)}`;
+  return `tel:${digits}`;
+}
