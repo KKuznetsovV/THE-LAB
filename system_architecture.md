@@ -82,7 +82,7 @@ thelab-web/
 - [x] 08 Frontend data layer & Home page (`feat/08-home`)
 - [x] 09 Menu page (`feat/09-menu`)
 - [x] 10 Take Me Home, Visit/Book, Events, Archive, About, legal pages (`feat/10-pages`)
-- [ ] 11 Admin panel (`feat/11-admin`)
+- [x] 11 Admin panel (`feat/11-admin`)
 - [ ] 12 SEO, performance, accessibility (`feat/12-seo-perf-a11y`)
 - [ ] 13 Docker, gateway, production compose (`chore/13-docker-deploy`)
 - [ ] 14 QA, docs, v1.0.0 (`chore/14-launch`)
