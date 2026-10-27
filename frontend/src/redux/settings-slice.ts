@@ -20,15 +20,16 @@ const initialState: SettingsState = {
   error: null,
 };
 
-export const loadSite = createAsyncThunk('settings/load', async () => {
+export const loadSite = createAsyncThunk('settings/load', async (arg?: { force?: boolean }) => {
   const [settings, hours] = await Promise.all([
     contentService.getSettings(),
     contentService.getHours(),
   ]);
-  return { settings, hours };
+  return { settings, hours, force: arg?.force === true };
 }, {
-  condition: (_arg, api) => {
+  condition: (arg, api) => {
     const status = (api.getState() as { settings: SettingsState }).settings.status;
+    if (arg?.force) return status !== 'loading';
     return status === 'idle';
   },
 });
