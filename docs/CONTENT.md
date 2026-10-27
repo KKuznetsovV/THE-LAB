@@ -90,7 +90,7 @@ Cocktail names are English in both locales. Ingredient lines exist in Hebrew on 
 | SMT | 05 | SNEAKERS MANHATTAN | 68 | ויסקי שיפון, תזקיק חמאת בוטנים ושוקולד, ורמוט אדום, סירופ קרמל | rye whiskey, peanut butter & chocolate distillate, vermouth rosso, caramel |
 | SNS | 06 | SPICY NO SPICY MARGARITA | 68 | טקילה מזוקקת עם צ'ילי, מזקל, אפרול, שרבט אשכוליות, מרווה | chilli tequila distillate, mezcal, Aperol, grapefruit sherbet, sage |
 | SCK | 07 | STRAWBERRY CHEESECAKE | 64 | בורבון, תות, חלב, ליקר ליצ'י | bourbon, strawberry, milk, lychee liqueur |
-| SF | 08 | SUNFIRE | 66 | מנגו, צ'ילי, טקילה מזקל | mango, chili, tequila, mezcal |
+| SF | 08 | SUNFIRE | 66 | מנגו, צ'ילי, טקילה, מזקל | mango, chili, tequila, mezcal |
 | CRC | 09 | CHURCHIL | 69 | תזקיק סיגר ורמוט אדום, ליקר אננס, ליקר ארטישוק, טקילה, מזקל | cigar-distilled vermouth rosso, pineapple liqueur, artichoke liqueur, tequila, mezcal 📝 |
 | VH | 10 | VETIVER HIGHBALL | 64 | ג'ין פטל, אננס, שורש וטיבר, ורג'וס ענבים | raspberry gin, pineapple, vetiver root, grape verjus |
 | BLD | 11 | BLOODY MISHA | 62 | עגבניות, ווסטרשייר, טבסקו, ג'ין סלרי, טקילה | tomato, Worcestershire, Tabasco, celery gin, tequila 📝 |

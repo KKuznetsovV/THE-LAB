@@ -1,0 +1,8 @@
+.header {
+  padding-block: 0.75rem;
+  padding-inline: 1rem;
+}
+
+.header-name {
+  font-weight: 700;
+}
