@@ -1,29 +1,37 @@
 .element-tile {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  min-inline-size: 0;
+}
+
+.element-tile-face {
   position: relative;
   display: grid;
   place-items: center;
   aspect-ratio: 1;
+  inline-size: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
 }
 
 .element-tile--sm { inline-size: 4.5rem; }
-.element-tile--md { inline-size: 6.5rem; }
+.element-tile--md { inline-size: 100%; }
 .element-tile--lg { inline-size: 9rem; }
 
-.element-tile--dark {
+.element-tile--dark .element-tile-face {
   background: var(--bg);
   color: var(--ink);
 }
 
-.element-tile--paper {
+.element-tile--paper .element-tile-face {
   background: var(--powder-grey);
   color: var(--paper-ink);
   border-color: var(--paper-ink);
 }
 
-.element-tile--green {
+.element-tile--green .element-tile-face {
   background: var(--acid-green);
   color: var(--paper-ink);
   border-color: var(--acid-green);
@@ -39,13 +47,24 @@
 
 .element-tile-code {
   position: relative;
+  margin: 0;
   font-family: var(--font-mono);
   font-size: var(--text-h3);
   letter-spacing: 0.04em;
 }
 
 .element-tile--sm .element-tile-code { font-size: var(--text-small); }
+.element-tile--md .element-tile-code { font-size: 1.5rem; }
 .element-tile--lg .element-tile-code { font-size: var(--text-h2); }
+
+.element-tile-name {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: var(--text-small);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
 
 .element-tile-index {
   font-size: 0.55em;

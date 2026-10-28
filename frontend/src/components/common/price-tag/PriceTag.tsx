@@ -9,5 +9,5 @@ type Props = {
 
 export default function PriceTag({ price, locale = 'he' }: Props) {
   const label = locale === 'he' ? `[${price}₪]` : `[₪${price}]`;
-  return <span className="price-tag">{label}</span>;
+  return <span className="price-tag" dir="ltr">{label}</span>;
 }

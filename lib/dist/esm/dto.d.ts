@@ -30,6 +30,8 @@ export type CocktailSummaryDto = {
 export type BottleDto = {
     id: string;
     cocktailId: string;
+    displayNameEn: string | null;
+    displayNameHe: string | null;
     price200: number;
     price500: number;
     isAvailable: boolean;

@@ -1,70 +1,87 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import GlowLogo from '../../../common/glow-logo/GlowLogo';
+import Ltr from '../../../common/ltr/Ltr';
+import PhoneLink from '../../../common/phone-link/PhoneLink';
 import { useLocalizedPath } from '../../../../i18n/locale';
 import { useAppSelector } from '../../../../redux/hooks';
 import { selectHours, selectSettings } from '../../../../redux/settings-slice';
 import { weekdayInJerusalem } from '../../../../utils/hours';
-import { siteDefaults, telHref } from '../../../../utils/site-defaults';
+import { siteDefaults } from '../../../../utils/site-defaults';
 import { useLocalized } from '../../../../hooks/use-localized';
 import './Footer.css';
 
-const DAY_ANCHOR = new Date(Date.UTC(2026, 0, 4));
-
-function dayName(day: number, locale: string): string {
-  const date = new Date(DAY_ANCHOR);
-  date.setUTCDate(DAY_ANCHOR.getUTCDate() + day);
-  return new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' }).format(date);
-}
+const LINKS = [
+  ['/menu', 'nav.menu'],
+  ['/take-me-home', 'nav.takeMeHome'],
+  ['/events', 'nav.events'],
+  ['/archive', 'nav.archive'],
+  ['/about', 'nav.about'],
+  ['/visit', 'nav.visit'],
+] as const;
 
 export default function Footer() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const localize = useLocalizedPath();
   const { text } = useLocalized();
   const settings = useAppSelector(selectSettings);
   const hours = useAppSelector(selectHours);
   const today = weekdayInJerusalem(new Date());
+  const row = hours.find((item) => item.dayOfWeek === today);
   const warning = text(settings.alcoholWarningHe, settings.alcoholWarningEn);
-  const happyHour = `${settings.happyHour.startsAt}–${settings.happyHour.endsAt}`;
+  const brand = t('footer.brand');
+  const brandSplit = brand.split(':');
+  const brandLead = brandSplit[0] ?? brand;
+  const brandName = brandSplit.slice(1).join(':').trim();
 
   return (
     <footer className="site-footer">
-      <GlowLogo variant="stacked" colour="green" />
-      <a href={settings.mapsUrl} target="_blank" rel="noopener noreferrer">
-        {text(settings.addressHe, settings.addressEn)}
-        <span className="visually-hidden"> {t('common.opensNewTab')}</span>
-      </a>
-      <a href={telHref(settings.phone)}>{settings.phone}</a>
-      <table className="hours-table">
-        <caption className="t-mono">{t('footer.hours')}</caption>
-        <tbody>
-          {hours.map((row) => (
-            <tr key={row.dayOfWeek} className={row.dayOfWeek === today ? 'is-today' : undefined}>
-              <th scope="row">
-                {dayName(row.dayOfWeek, i18n.language)}
-                {row.dayOfWeek === today ? <span className="visually-hidden"> {t('footer.today')}</span> : null}
-              </th>
-              <td>{row.isClosed ? t('footer.closed') : `${row.opensAt}–${row.closesAt}`}</td>
-            </tr>
+      <div className="footer-grid">
+        <section aria-label={t('nav.visit')}>
+          <h2 className="t-mono">{t('nav.visit')}</h2>
+          <p>{text(settings.addressHe, settings.addressEn)}</p>
+          <p><PhoneLink phone={settings.phone} /></p>
+          <p>
+            {t('footer.today')}{' '}
+            {row && !row.isClosed ? <Ltr>{row.opensAt}–{row.closesAt}</Ltr> : t('footer.closed')}
+          </p>
+        </section>
+        <nav aria-label={t('footer.explore')}>
+          <h2 className="t-mono">{t('footer.explore')}</h2>
+          {LINKS.map(([path, key]) => (
+            <Link key={path} to={localize(path)}>{t(key)}</Link>
           ))}
-        </tbody>
-      </table>
-      <p>{t('footer.happyHour', { time: happyHour })}</p>
-      <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer">
-        {t('footer.instagram')}
-        <span className="visually-hidden"> {t('common.opensNewTab')}</span>
-      </a>
-      <nav className="footer-links" aria-label={t('common.siteNav')}>
-        <a href={settings.giftCardUrl} target="_blank" rel="noopener noreferrer">{t('footer.giftCards')}<span className="visually-hidden"> {t('common.opensNewTab')}</span></a>
-        <a href={settings.privateEventsUrl} target="_blank" rel="noopener noreferrer">{t('footer.privateEvents')}<span className="visually-hidden"> {t('common.opensNewTab')}</span></a>
-        <a href={siteDefaults.tyoUrl} target="_blank" rel="noopener noreferrer">{t('footer.tyo')}<span className="visually-hidden"> {t('common.opensNewTab')}</span></a>
-        <Link to={localize('/accessibility')}>{t('footer.accessibility')}</Link>
-        <Link to={localize('/privacy')}>{t('footer.privacy')}</Link>
-      </nav>
-      <p>{warning}</p>
-      <p className="t-mono" lang="en">{siteDefaults.nodeAddress}</p>
-      <p>{t('footer.rights')}</p>
-      <p>{t('footer.brand')}</p>
+        </nav>
+        <nav aria-label={t('footer.more')}>
+          <h2 className="t-mono">{t('footer.more')}</h2>
+          <a href={settings.giftCardUrl} target="_blank" rel="noopener noreferrer">
+            {t('footer.giftCards')}
+            <span className="visually-hidden"> {t('common.opensNewTab')}</span>
+          </a>
+          <a href={settings.privateEventsUrl} target="_blank" rel="noopener noreferrer">
+            {t('footer.privateEvents')}
+            <span className="visually-hidden"> {t('common.opensNewTab')}</span>
+          </a>
+          <a href={siteDefaults.tyoUrl} target="_blank" rel="noopener noreferrer">
+            {t('footer.tyo')}
+            <span className="visually-hidden"> {t('common.opensNewTab')}</span>
+          </a>
+          <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer">
+            <Ltr>{t('footer.instagram')}</Ltr>
+            <span className="visually-hidden"> {t('common.opensNewTab')}</span>
+          </a>
+        </nav>
+        <nav aria-label={t('footer.legal')}>
+          <h2 className="t-mono">{t('footer.legal')}</h2>
+          <Link to={localize('/accessibility')}>{t('footer.accessibility')}</Link>
+          <Link to={localize('/privacy')}>{t('footer.privacy')}</Link>
+        </nav>
+      </div>
+      <p className="footer-bottom">
+        <span>{warning}</span>
+        <Ltr>{siteDefaults.nodeAddress}</Ltr>
+        <Ltr>{t('footer.rights')}</Ltr>
+        <span>{brandName ? <>{brandLead}: <Ltr>{brandName}</Ltr></> : <Ltr>{brand}</Ltr>}</span>
+      </p>
     </footer>
   );
 }

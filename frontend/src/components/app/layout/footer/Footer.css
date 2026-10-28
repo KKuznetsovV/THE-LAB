@@ -1,39 +1,45 @@
 .site-footer {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-6);
   padding: var(--space-6) var(--space-4);
   border-block-start: 1px solid var(--line);
   color: var(--muted);
+}
+
+.footer-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.footer-grid section,
+.footer-grid nav {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.footer-grid h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: var(--text-label);
 }
 
 .site-footer a {
   color: var(--ink);
 }
 
-.hours-table {
-  border-collapse: collapse;
-  inline-size: min(20rem, 100%);
-}
-
-.hours-table caption {
-  text-align: start;
-  margin-block-end: var(--space-2);
-}
-
-.hours-table th,
-.hours-table td {
-  padding-block: var(--space-1);
-  padding-inline-end: var(--space-4);
-  font-weight: 400;
-  text-align: start;
-}
-
-.hours-table .is-today {
-  color: var(--acid-green);
-}
-
-.footer-links {
+.footer-bottom {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
+  margin: 0;
+  padding-block-start: var(--space-4);
+  border-block-start: 1px solid var(--line);
+  font-size: var(--text-small);
+}
+
+@media (min-width: 900px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

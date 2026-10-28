@@ -62,3 +62,11 @@ export function telHref(phone: string): string {
   if (digits.startsWith('0')) return `tel:+972${digits.slice(1)}`;
   return `tel:${digits}`;
 }
+
+export function displayPhone(phone: string): string {
+  const digits = phone.replace(/\D/g, '');
+  const local = digits.startsWith('972') ? `0${digits.slice(3)}` : digits;
+  if (local.length === 9) return `${local.slice(0, 2)}-${local.slice(2, 5)}-${local.slice(5)}`;
+  if (local.length === 10) return `${local.slice(0, 3)}-${local.slice(3, 6)}-${local.slice(6)}`;
+  return phone;
+}

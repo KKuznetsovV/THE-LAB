@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '../../../redux/hooks';
 import { selectSettings } from '../../../redux/settings-slice';
-import { telHref } from '../../../utils/site-defaults';
+import Ltr from '../../common/ltr/Ltr';
+import PhoneLink from '../../common/phone-link/PhoneLink';
 import PageMeta from '../../seo/PageMeta';
 import './Accessibility.css';
 
@@ -31,8 +32,8 @@ export default function Accessibility() {
       <section>
         <h2>{t('legal.coordinator')}</h2>
         {name ? <p>{name}</p> : null}
-        {phone ? <p><a href={telHref(phone)}>{phone}</a></p> : null}
-        {email ? <p><a href={`mailto:${email}`}>{email}</a></p> : null}
+        {phone ? <p><PhoneLink phone={phone} /></p> : null}
+        {email ? <p><a href={`mailto:${email}`}><Ltr>{email}</Ltr></a></p> : null}
         <p>{auditLabel}</p>
       </section>
       <section>

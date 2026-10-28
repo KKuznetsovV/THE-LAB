@@ -10,10 +10,18 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { loadMenu, selectMenu } from '../../../redux/collections';
 import './MenuTeaser.css';
 
+const SECTION_ORDER = ['liquid-records', 'lab-classics', 'almost-classics'] as const;
+
 function featured(items: CocktailDto[]): CocktailDto[] {
-  const signatures = items.filter((item) => item.isSignature);
-  const rest = items.filter((item) => !item.isSignature);
-  return [...signatures, ...rest].slice(0, 8);
+  return items
+    .filter((item) => item.section !== 'virgin' && !item.code.startsWith('V-'))
+    .sort((a, b) => {
+      const section = SECTION_ORDER.indexOf(a.section as (typeof SECTION_ORDER)[number])
+        - SECTION_ORDER.indexOf(b.section as (typeof SECTION_ORDER)[number]);
+      if (section !== 0) return section;
+      return a.indexLabel.localeCompare(b.indexLabel, 'en') || a.sortOrder - b.sortOrder;
+    })
+    .slice(0, 8);
 }
 
 export default function MenuTeaser() {
@@ -41,14 +49,14 @@ export default function MenuTeaser() {
           <ul className="menu-teaser-grid">
             {tiles.map((item) => (
               <li key={item.id}>
-                <Link className="menu-teaser-link" to={localize('/menu')}>
+                <Link className="menu-teaser-link" to={localize(`/menu/${item.code}`)}>
                   <ElementTile
                     code={item.code}
                     indexLabel={item.indexLabel}
+                    name={item.nameEn}
                     image={item.imageUrl ?? undefined}
                     imageAlt={text(item.imageAltHe ?? item.nameHe, item.imageAltEn ?? item.nameEn)}
                   />
-                  <span className="visually-hidden">{item.nameEn}</span>
                 </Link>
               </li>
             ))}

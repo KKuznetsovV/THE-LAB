@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import GlowLogo from '../../../common/glow-logo/GlowLogo';
+import Ltr from '../../../common/ltr/Ltr';
 import StatusBar from '../../../common/status-bar/StatusBar';
 import TerminalButton from '../../../common/terminal-button/TerminalButton';
 import { useDelivery } from '../../../../hooks/use-delivery';
@@ -54,11 +55,15 @@ export default function Header() {
   const open = isOpenNow(hours, now);
   const change = nextChange(hours, now);
   const time = change ? formatHm(change.at) : '';
-  const status = open ? t('common.openUntil', { time }) : t('common.closedOpens', { time });
 
   return (
     <header className={compact ? 'site-header is-compact' : 'site-header'}>
-      <StatusBar><span>{status}</span></StatusBar>
+      <StatusBar>
+        <span>
+          {open ? t('common.openUntil') : t('common.closedOpens')}
+          {time ? <> <Ltr>{time}</Ltr></> : null}
+        </span>
+      </StatusBar>
       <div className="site-header-row">
         <Link className="site-logo" to={localize('/')} aria-label="THE LAB">
           <GlowLogo variant="horizontal" colour="green" />
@@ -68,20 +73,27 @@ export default function Header() {
             <NavLink key={path} to={localize(path)}>{t(key)}</NavLink>
           ))}
         </nav>
-        <LanguageSwitch />
-        <div className="site-header-actions">
-          <TerminalButton href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
-            {t('common.book')}
-          </TerminalButton>
-          <TerminalButton variant="outline" onClick={order}>{t('common.order')}</TerminalButton>
+        <p className="header-live">
+          <span className={open ? 'header-live-dot is-open' : 'header-live-dot'} aria-hidden="true" />
+          <span>{open ? t('common.liveOpen') : t('common.liveClosed')}</span>
+        </p>
+        <div className="site-header-end">
+          <LanguageSwitch />
+          <div className="site-header-actions">
+            <TerminalButton className="header-cta" href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
+              {t('common.book')}
+            </TerminalButton>
+            <TerminalButton className="header-cta" variant="outline" onClick={order}>{t('common.order')}</TerminalButton>
+          </div>
         </div>
         <button
           type="button"
-          className="menu-toggle t-mono"
+          className="menu-toggle"
           aria-expanded={menuOpen}
+          aria-label={t('common.openMenu')}
           onClick={() => setMenuOpen(true)}
         >
-          {t('common.openMenu')}
+          <span className="menu-toggle-icon" aria-hidden="true" />
         </button>
       </div>
       {menuOpen ? <NavOverlay onClose={closeMenu} /> : null}

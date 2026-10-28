@@ -1,0 +1,35 @@
+.booking-panel {
+  display: grid;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.booking-primary,
+.booking-aside {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.booking-status {
+  font-family: var(--font-mono);
+}
+
+.booking-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.cta-lg {
+  min-block-size: 52px;
+  min-inline-size: 200px;
+  font-size: 16px;
+}
+
+@media (min-width: 900px) {
+  .booking-panel {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}

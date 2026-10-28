@@ -73,6 +73,8 @@ export function toBottle(row: Bottle) {
   return {
     id: row.id,
     cocktailId: row.cocktailId,
+    displayNameEn: row.displayNameEn,
+    displayNameHe: row.displayNameHe,
     price200: row.price200,
     price500: row.price500,
     isAvailable: row.isAvailable,

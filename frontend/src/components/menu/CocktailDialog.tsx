@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ElementTile from '../common/element-tile/ElementTile';
 import FlavourIcon from '../common/flavour-icon/FlavourIcon';
+import Ltr from '../common/ltr/Ltr';
 import PriceTag from '../common/price-tag/PriceTag';
 import type { FlavourKey } from '../common/flavour-icon/flavours';
 import { useLocalized } from '../../hooks/use-localized';
@@ -56,33 +57,40 @@ export default function CocktailDialog({ code, item, bottle, onClose }: Props) {
         onClose();
       }}
     >
-      <button type="button" className="cocktail-dialog-close t-mono" onClick={onClose}>
-        {t('menu.close')}
+      <button type="button" className="cocktail-dialog-close" aria-label={t('menu.close')} onClick={onClose}>
+        ×
       </button>
       {item ? (
         <div className="cocktail-dialog-body">
-          {item.imageUrl ? (
-            <img
-              src={item.imageUrl}
-              alt={text(item.imageAltHe ?? item.nameHe, item.imageAltEn ?? item.nameEn)}
-              width={960}
-              height={720}
-            />
-          ) : null}
-          <ElementTile code={item.code} indexLabel={item.indexLabel} size="lg" />
-          <h2 id="cocktail-dialog-title" lang="en">{item.nameEn}</h2>
-          <p>{text(item.ingredientsHe, item.ingredientsEn)}</p>
-          <p>{text(item.descriptionHe ?? '', item.descriptionEn ?? '')}</p>
-          <p className="cocktail-dialog-flavours">
-            {item.flavours.map((flavour) => {
-              const key = asFlavour(flavour);
-              return key ? <FlavourIcon key={flavour} flavour={key} locale={locale} labelled /> : null;
-            })}
-          </p>
-          {item.price !== null ? <PriceTag price={item.price} locale={locale} /> : null}
-          {bottle ? (
-            <Link to={`${localize('/take-me-home')}#${item.code}`}>{t('menu.takeHome')}</Link>
-          ) : null}
+          <div className="cocktail-dialog-media">
+            {item.imageUrl ? (
+              <img
+                src={item.imageUrl}
+                alt={text(item.imageAltHe ?? item.nameHe, item.imageAltEn ?? item.nameEn)}
+                width={960}
+                height={720}
+              />
+            ) : (
+              <ElementTile code={item.code} indexLabel={item.indexLabel} size="lg" />
+            )}
+          </div>
+          <div className="cocktail-dialog-info">
+            <h2 id="cocktail-dialog-title" lang="en">{item.nameEn}</h2>
+            <p>{text(item.ingredientsHe, item.ingredientsEn)}</p>
+            <p>{text(item.descriptionHe ?? '', item.descriptionEn ?? '')}</p>
+            <p className="cocktail-dialog-flavours">
+              {item.flavours.map((flavour) => {
+                const key = asFlavour(flavour);
+                return key ? <FlavourIcon key={flavour} flavour={key} locale={locale} labelled /> : null;
+              })}
+            </p>
+            {item.price !== null ? <PriceTag price={item.price} locale={locale} /> : null}
+            {bottle ? (
+              <Link to={`${localize('/take-me-home')}#${item.code}`}>
+                <Ltr>{t('menu.takeHome')}</Ltr>
+              </Link>
+            ) : null}
+          </div>
         </div>
       ) : (
         <p id="cocktail-dialog-title">{t('menu.missing')}</p>

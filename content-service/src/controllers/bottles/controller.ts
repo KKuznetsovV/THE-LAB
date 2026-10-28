@@ -21,8 +21,10 @@ export async function list(req: Request, res: Response, next: NextFunction): Pro
 }
 
 function assign(row: Bottle, body: Record<string, unknown>): void {
-  for (const key of ['cocktailId', 'price200', 'price500', 'isAvailable', 'isPublished', 'sortOrder', 'imageUrl', 'imageAltEn', 'imageAltHe'] as const) {
-    if (key in body) Reflect.set(row, key, body[key]);
+  for (const key of ['cocktailId', 'displayNameEn', 'displayNameHe', 'price200', 'price500', 'isAvailable', 'isPublished', 'sortOrder', 'imageUrl', 'imageAltEn', 'imageAltHe'] as const) {
+    if (!(key in body)) continue;
+    const value = body[key];
+    Reflect.set(row, key, value === '' ? null : value);
   }
 }
 

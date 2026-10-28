@@ -1,5 +1,6 @@
 .cocktail-dialog {
-  inline-size: min(40rem, calc(100vw - 2rem));
+  position: relative;
+  inline-size: min(56rem, calc(100vw - 2rem));
   max-block-size: calc(100vh - 2rem);
   margin: auto;
   padding: var(--space-6);
@@ -7,6 +8,7 @@
   border-radius: var(--radius);
   background: var(--powder-grey);
   color: var(--paper-ink);
+  overflow: auto;
 }
 
 .cocktail-dialog::backdrop {
@@ -14,23 +16,36 @@
 }
 
 .cocktail-dialog-close {
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-end: var(--space-3);
+  inline-size: 44px;
+  block-size: 44px;
   background: transparent;
   color: var(--paper-ink);
   border: 1px solid var(--paper-ink);
-  padding: var(--space-2) var(--space-3);
+  font-size: 1.5rem;
+  line-height: 1;
   cursor: pointer;
 }
 
 .cocktail-dialog-body {
   display: grid;
   gap: var(--space-4);
-  margin-block-start: var(--space-4);
+  margin-block-start: var(--space-8);
 }
 
+.cocktail-dialog-media img,
 .cocktail-dialog img {
   inline-size: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+.cocktail-dialog-info {
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
 }
 
 .cocktail-dialog-flavours {
@@ -39,6 +54,17 @@
   gap: var(--space-3);
 }
 
+.cocktail-dialog .price-tag {
+  font-size: var(--text-h2);
+}
+
 .cocktail-dialog a {
   color: inherit;
+}
+
+@media (min-width: 700px) {
+  .cocktail-dialog-body {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
 }

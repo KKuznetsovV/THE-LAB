@@ -55,7 +55,7 @@ npm run dev
 Open http://localhost:5173. Hebrew is at `/` (`lang="he"` `dir="rtl"`). English is under `/en`.
 In dev, http://localhost:5173/styleguide shows the brand tokens and primitives. It is omitted from production builds.
 
-`npm run build:production` prerenders every public route into `dist/<path>/index.html`, then writes `dist/sitemap.xml` and `dist/robots.txt`. It needs Google Chrome. Set `SKIP_PRERENDER=1` to skip that browser step (CI does this, and the frontend image does too unless the build is asked to prerender). Sitemap and robots are still written. Vite's preview server falls back to the SPA shell, so it hides those files. `node scripts/preview-static.mjs` serves them the way nginx will (`/menu` → `dist/menu/index.html`) and proxies `/api` to the content service.
+`npm run build:production` prerenders every public route into `dist/<path>/index.html`, then writes `dist/sitemap.xml` and `dist/robots.txt`. It needs Google Chrome. Set `SKIP_PRERENDER=1` to skip that browser step (the Node CI job does this). The frontend Docker image prerenders by default and falls back to `db/seed.sql` when the content API is down. Sitemap and robots are still written. Vite's preview server falls back to the SPA shell, so it hides those files. `node scripts/preview-static.mjs` serves them the way nginx will (`/menu` → `dist/menu/index.html`) and proxies `/api` to the content service.
 
 Mobile Lighthouse reports for Home, Menu, Take Me Home and Visit live in `docs/lighthouse/`.
 

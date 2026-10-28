@@ -7,8 +7,14 @@
   color: var(--dim);
 }
 
-.section-header-title {
+.section-header-title,
+.section-header-sub {
   margin: 0;
+}
+
+.section-header-sub {
+  color: var(--muted);
+  font-size: var(--text-body);
 }
 
 .section-header-ja {
