@@ -3,8 +3,47 @@
 @import "@fontsource/heebo/latin-400.css";
 @import "@fontsource/heebo/latin-700.css";
 @import "@fontsource/heebo/hebrew-400.css";
+@import "@fontsource/heebo/hebrew-500.css";
 @import "@fontsource/heebo/hebrew-700.css";
+@import "@fontsource/ibm-plex-mono/latin-400.css";
+@import "@fontsource/ibm-plex-mono/latin-500.css";
 @import "@fontsource/vt323/latin-400.css";
+
+@font-face {
+  font-family: "LabMono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "LabMono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "LabMono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("@fontsource/heebo/files/heebo-hebrew-500-normal.woff2") format("woff2");
+  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: "LabMono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("@fontsource/heebo/files/heebo-hebrew-500-normal.woff2") format("woff2");
+  unicode-range: U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
 
 /*
   Licensed faces (Aktiv Grotesk, Narkiss Yair) are declared in fonts-licensed.css
@@ -51,7 +90,7 @@
 
   --font-head: "Aktiv Grotesk", "Inter Tight", sans-serif;
   --font-body: "Narkiss Yair", "Heebo", sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "IBM Plex Mono", "Noto Sans Mono", "Noto Sans Hebrew", monospace;
+  --font-mono: "LabMono", "IBM Plex Mono", "Heebo", ui-monospace, monospace;
   --font-pixel: "VT323", monospace;
 
   --text-display: clamp(3.5rem, 1.6rem + 5vw, 6rem);

@@ -1,6 +1,6 @@
 .take-me-home {
   display: grid;
-  gap: var(--space-8);
+  gap: var(--space-6);
   max-inline-size: var(--container);
   margin-inline: auto;
 }
@@ -11,42 +11,65 @@
 }
 
 .take-me-home-loading {
-  min-block-size: 12rem;
+  min-block-size: 8rem;
 }
 
 .bottle-list {
   display: grid;
-  gap: var(--space-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.bottle-label {
+.bottle-card {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  align-content: start;
   scroll-margin-block-start: 6rem;
-  padding: var(--space-5);
+  padding: var(--space-3);
   border: 1px solid var(--paper-ink);
   background: var(--warm-ash);
   color: var(--paper-ink);
 }
 
-.bottle-brand {
-  font-family: var(--font-head);
-  font-size: var(--text-h2);
-  margin: 0;
+.bottle-card .glow-logo--stacked {
+  inline-size: 3.25rem;
+  min-inline-size: 0;
 }
 
-.bottle-label img {
-  inline-size: 100%;
-  max-inline-size: 16rem;
+.bottle-name {
+  margin: 0;
+  font-size: clamp(1.75rem, 2vw, 2rem);
+  line-height: 1.05;
+}
+
+.bottle-meta {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+}
+
+.bottle-photo {
+  display: grid;
+  place-items: center;
   aspect-ratio: 3 / 4;
+  background: var(--powder-grey);
+  color: var(--paper-ink);
+}
+
+.bottle-photo img {
+  inline-size: 100%;
+  block-size: 100%;
   object-fit: cover;
 }
 
-.bottle-age {
-  font-family: var(--font-mono);
+.bottle-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .size-toggle {
@@ -83,27 +106,19 @@
 
 .serving-guide ol {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .serving-guide li {
-  display: grid;
-  align-content: start;
+  display: flex;
   gap: var(--space-3);
-  min-block-size: 8rem;
-  padding: var(--space-4);
-  border: 3px solid var(--paper-ink);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1100px) {
   .bottle-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .serving-guide ol {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

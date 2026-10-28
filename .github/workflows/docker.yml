@@ -58,7 +58,7 @@ jobs:
             {
               echo "value<<EOF"
               echo "BUILD_SCRIPT=build:docker"
-              echo "SKIP_PRERENDER=1"
+              echo "SKIP_PRERENDER=0"
               echo "EOF"
             } >> "$GITHUB_OUTPUT"
           else

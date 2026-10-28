@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { withLocale, type Locale } from '../../i18n/locale';
 import { absoluteUrl, siteOrigin } from '../../utils/site-origin';
@@ -5,33 +6,41 @@ import { absoluteUrl, siteOrigin } from '../../utils/site-origin';
 type Props = {
   title: string;
   description: string;
-  path: string;
+  path?: string;
   type?: 'website' | 'article';
   robots?: string;
+  indexed?: boolean;
 };
 
 function localizedUrl(path: string, locale: Locale): string {
   return absoluteUrl(withLocale(path, locale));
 }
 
-export default function PageMeta({ title, description, path, type = 'website', robots }: Props) {
+export default function PageMeta({ title, description, path = '/', type = 'website', robots, indexed = true }: Props) {
   const { i18n } = useTranslation();
   const locale: Locale = i18n.language === 'en' ? 'en' : 'he';
   const image = `${siteOrigin()}/og/the-lab.png`;
+  useEffect(() => {
+    if (indexed) return undefined;
+    document.querySelectorAll('link[rel="canonical"], link[rel="alternate"][hreflang]').forEach((node) => {
+      node.remove();
+    });
+    return undefined;
+  }, [indexed]);
   return (
     <>
       <title>{title}</title>
       <meta name="description" content={description} />
       {robots ? <meta name="robots" content={robots} /> : null}
-      <link rel="canonical" href={localizedUrl(path, locale)} />
-      <link rel="alternate" hrefLang="he" href={localizedUrl(path, 'he')} />
-      <link rel="alternate" hrefLang="en" href={localizedUrl(path, 'en')} />
-      <link rel="alternate" hrefLang="x-default" href={localizedUrl(path, 'he')} />
+      {indexed ? <link rel="canonical" href={localizedUrl(path, locale)} /> : null}
+      {indexed ? <link rel="alternate" hrefLang="he" href={localizedUrl(path, 'he')} /> : null}
+      {indexed ? <link rel="alternate" hrefLang="en" href={localizedUrl(path, 'en')} /> : null}
+      {indexed ? <link rel="alternate" hrefLang="x-default" href={localizedUrl(path, 'he')} /> : null}
       <meta property="og:site_name" content="THE LAB" />
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:url" content={localizedUrl(path, locale)} />
+      {indexed ? <meta property="og:url" content={localizedUrl(path, locale)} /> : null}
       <meta property="og:locale" content={locale === 'he' ? 'he_IL' : 'en_US'} />
       <meta property="og:locale:alternate" content={locale === 'he' ? 'en_US' : 'he_IL'} />
       <meta property="og:image" content={image} />

@@ -6,11 +6,40 @@
   text-align: center;
 }
 
+.not-found-sign {
+  position: relative;
+  display: grid;
+  place-items: center;
+  inline-size: min(16rem, 70vw);
+  color: var(--acid-green);
+  filter: var(--logo-glow);
+  animation: sign-flicker 900ms var(--ease) 1;
+}
+
 .not-found-blob {
-  inline-size: 10rem;
-  fill: var(--acid-green);
+  inline-size: 100%;
+  block-size: auto;
+}
+
+.not-found-sign .glow-logo {
+  position: absolute;
+  inline-size: 42%;
 }
 
 .not-found a {
   color: var(--ink);
+}
+
+@keyframes sign-flicker {
+  0%,
+  100% { opacity: 1; }
+  35% { opacity: 0.25; }
+  50% { opacity: 1; }
+  68% { opacity: 0.45; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-sign {
+    animation: none;
+  }
 }

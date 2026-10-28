@@ -5,3 +5,11 @@
   margin-inline: auto;
   padding-block-start: var(--space-12);
 }
+
+.maze-breaker {
+  position: relative;
+  block-size: 6.5rem;
+  margin-inline: calc(50% - 50vw);
+  overflow: hidden;
+  background: var(--acid-green);
+}

@@ -16,6 +16,8 @@ type Notice = { tone: 'success' | 'error'; text: string };
 type Draft = BottleDto | 'new';
 type Values = {
   cocktailId: string;
+  displayNameEn: string;
+  displayNameHe: string;
   price200: string;
   price500: string;
   isAvailable: boolean;
@@ -29,6 +31,8 @@ function valuesOf(row: BottleDto | null, cocktails: CocktailDto[]): Values {
   if (!row) {
     return {
       cocktailId: cocktails[0]?.id ?? '',
+      displayNameEn: '',
+      displayNameHe: '',
       price200: '',
       price500: '',
       isAvailable: true,
@@ -40,6 +44,8 @@ function valuesOf(row: BottleDto | null, cocktails: CocktailDto[]): Values {
   }
   return {
     cocktailId: row.cocktailId,
+    displayNameEn: row.displayNameEn ?? '',
+    displayNameHe: row.displayNameHe ?? '',
     price200: String(row.price200),
     price500: String(row.price500),
     isAvailable: row.isAvailable,
@@ -81,6 +87,8 @@ function BottleForm({
     }
     const body: BottleWrite = {
       cocktailId: values.cocktailId,
+      displayNameEn: values.displayNameEn.trim() ? values.displayNameEn.trim() : null,
+      displayNameHe: values.displayNameHe.trim() ? values.displayNameHe.trim() : null,
       price200,
       price500,
       isAvailable: values.isAvailable,
@@ -101,7 +109,7 @@ function BottleForm({
 
   return (
     <form className="admin-form" noValidate onSubmit={(event) => { void handleSubmit(onSubmit)(event); }}>
-      <h2>{draft === 'new' ? t('bottles.fresh') : draft.cocktail.nameEn}</h2>
+      <h2>{draft === 'new' ? t('bottles.fresh') : (draft.displayNameEn || draft.cocktail.nameEn)}</h2>
       <div className="admin-grid admin-grid--2">
         <label className="admin-field">
           {t('bottles.cocktail')}
@@ -109,6 +117,8 @@ function BottleForm({
             {cocktails.map((cocktail) => <option key={cocktail.id} value={cocktail.id}>{cocktail.code} {cocktail.nameEn}</option>)}
           </select>
         </label>
+        <label className="admin-field">{t('bottles.displayNameEn')}<input dir="ltr" {...register('displayNameEn')} /></label>
+        <label className="admin-field">{t('bottles.displayNameHe')}<input dir="rtl" {...register('displayNameHe')} /></label>
         <label className="admin-field">{t('bottles.price200')}<input dir="ltr" inputMode="numeric" {...register('price200')} /></label>
         <label className="admin-field">{t('bottles.price500')}<input dir="ltr" inputMode="numeric" {...register('price500')} /></label>
         <label className="admin-field">{t('bottles.altHe')}<input dir="rtl" {...register('imageAltHe')} /></label>
@@ -222,7 +232,7 @@ export default function BottlesAdmin() {
           <tbody>
             {rows.map((row) => (
               <tr key={row.id}>
-                <td dir="ltr">{row.cocktail.nameEn}</td>
+                <td dir="ltr">{row.displayNameEn || row.cocktail.nameEn}</td>
                 <td dir="ltr">{row.price200}</td>
                 <td dir="ltr">{row.price500}</td>
                 <td><input type="checkbox" checked={row.isAvailable} disabled={trash} aria-label={t('common.available')} onChange={() => { void toggle(row, { isAvailable: !row.isAvailable }); }} /></td>

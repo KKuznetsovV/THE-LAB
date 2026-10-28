@@ -3,6 +3,8 @@ import type { AxiosInstance } from 'axios';
 
 export type BottleWrite = {
   cocktailId: string;
+  displayNameEn: string | null;
+  displayNameHe: string | null;
   price200: number;
   price500: number;
   isAvailable: boolean;

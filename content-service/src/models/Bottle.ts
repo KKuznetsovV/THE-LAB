@@ -26,6 +26,14 @@ export default class Bottle extends Model {
   @BelongsTo(() => Cocktail)
   declare cocktail?: Cocktail;
 
+  @AllowNull(true)
+  @Column(DataType.STRING(80))
+  declare displayNameEn: string | null;
+
+  @AllowNull(true)
+  @Column(DataType.STRING(80))
+  declare displayNameHe: string | null;
+
   @AllowNull(false)
   @Column(DataType.INTEGER)
   declare price200: number;

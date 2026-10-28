@@ -1,0 +1,21 @@
+.bottle-silhouette {
+  display: block;
+  inline-size: 38%;
+  aspect-ratio: 2 / 5;
+  margin-inline: auto;
+  border: 2px solid currentColor;
+  border-radius: 46% 46% 18% 18% / 22% 22% 10% 10%;
+  position: relative;
+}
+
+.bottle-silhouette::before {
+  content: "";
+  position: absolute;
+  inset-inline: 30%;
+  inset-block-start: -16%;
+  block-size: 18%;
+  border: 2px solid currentColor;
+  border-block-end: 0;
+  border-start-start-radius: 40%;
+  border-start-end-radius: 40%;
+}

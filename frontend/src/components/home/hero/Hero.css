@@ -15,16 +15,34 @@
   }
 }
 
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    var(--bg) 0%,
+    color-mix(in srgb, var(--bg) 72%, transparent) 42%,
+    transparent 74%
+  );
+}
+
 .hero-copy {
   position: relative;
   z-index: var(--z-raised);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-5);
+  gap: var(--space-4);
   text-align: center;
   inline-size: 100%;
-  max-inline-size: 36rem;
+  max-inline-size: 40rem;
+  min-inline-size: 0;
+}
+
+.hero .glow-logo--stacked {
+  inline-size: clamp(200px, 30vw, 520px);
   min-inline-size: 0;
 }
 
@@ -35,14 +53,20 @@
 
 .hero-tagline .type-line {
   max-inline-size: 100%;
-  font-size: clamp(1.35rem, 4.6vw, 2.6rem);
+  font-family: var(--font-mono);
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-shadow: none;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
 .hero-accent {
   margin: 0;
   color: var(--acid-green);
-  font-size: var(--text-h3);
+  font-size: var(--text-small);
 }
 
 .hero-status {

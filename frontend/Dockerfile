@@ -9,10 +9,11 @@ WORKDIR /app/frontend
 COPY frontend/package.json frontend/package-lock.json ./
 RUN npm ci
 COPY frontend/ ./
-COPY scripts/prerender.mjs scripts/sitemap.mjs scripts/public-routes.mjs /app/scripts/
+COPY scripts/prerender.mjs scripts/sitemap.mjs scripts/public-routes.mjs scripts/seed-fallback.mjs /app/scripts/
+COPY db/seed.sql /app/db/seed.sql
 
-# Default skips Chrome. A publish build passes BUILD_SCRIPT=build:production and SKIP_PRERENDER=0.
-ARG SKIP_PRERENDER=1
+# The image prerenders public routes. Seed SQL is the fallback when content-service is down.
+ARG SKIP_PRERENDER=0
 ENV SKIP_PRERENDER=$SKIP_PRERENDER
 ARG BUILD_SCRIPT=build:docker
 RUN if [ "$SKIP_PRERENDER" != "1" ]; then npx playwright install --with-deps chromium && export PLAYWRIGHT_USE_BUNDLED=1; fi \

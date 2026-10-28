@@ -95,6 +95,8 @@ export const adminEn = {
   bottles: {
     title: 'Bottles',
     cocktail: 'Cocktail',
+    displayNameEn: 'Bottle name in English',
+    displayNameHe: 'Bottle name in Hebrew',
     price200: '200 ml',
     price500: '500 ml',
     fresh: 'New bottle',

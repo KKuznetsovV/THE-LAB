@@ -4,7 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import config from 'config';
 import sequelize, { ensureDatabaseExists } from './db/sequelize';
-import { seedContentIfEmpty } from './db/seed-loader';
+import { ensureBottleDisplayNames, seedContentIfEmpty } from './db/seed-loader';
 import logError from './middlewares/error/log-error';
 import respondError from './middlewares/error/error-responder';
 import notFound from './middlewares/not-found';
@@ -45,6 +45,7 @@ void (async () => {
   await ensureDatabaseExists();
   await sequelize.sync();
   await seedContentIfEmpty();
+  await ensureBottleDisplayNames();
 
   app.listen(port, () => {
     console.log(`${name} listening on ${port}`);

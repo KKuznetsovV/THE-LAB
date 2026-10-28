@@ -14,7 +14,7 @@ type Props = {
   opacity?: number;
 };
 
-export default function MazeBackground({ variant = 'black', opacity = 0.35 }: Props) {
+export default function MazeBackground({ variant = 'black', opacity = 0.15 }: Props) {
   const cap = variant === 'black' ? 0.35 : 1;
   const used = Math.min(cap, Math.max(0, opacity));
   const style = {

@@ -28,7 +28,7 @@ export default function StatusBar({ children }: Props) {
   return (
     <div className="status-bar t-mono">
       <span>TYO // LAB.NODE-01</span>
-      <span className="status-bar-clock" aria-hidden="true">{clock} // TLV</span>
+      <span className="status-bar-clock" dir="ltr" aria-hidden="true">{clock} // TLV</span>
       {children ? <span className="status-bar-slot">{children}</span> : null}
     </div>
   );

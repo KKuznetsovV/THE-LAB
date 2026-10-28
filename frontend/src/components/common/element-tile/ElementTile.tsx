@@ -1,3 +1,4 @@
+import Ltr from '../ltr/Ltr';
 import './ElementTile.css';
 
 const TILE_PX = { sm: 72, md: 104, lg: 144 } as const;
@@ -12,6 +13,7 @@ type Props = {
   tone?: Tone;
   image?: string;
   imageAlt?: string;
+  name?: string;
 };
 
 export default function ElementTile({
@@ -21,24 +23,28 @@ export default function ElementTile({
   tone = 'dark',
   image,
   imageAlt = '',
+  name,
 }: Props) {
   return (
     <article className={`element-tile element-tile--${size} element-tile--${tone}`}>
-      {image ? (
-        <img
-          className="element-tile-image"
-          src={image}
-          alt={imageAlt}
-          width={TILE_PX[size]}
-          height={TILE_PX[size]}
-          loading="lazy"
-          decoding="async"
-        />
-      ) : null}
-      <p className="element-tile-code">
-        {code}
-        <sup className="element-tile-index">{indexLabel}</sup>
-      </p>
+      <div className="element-tile-face">
+        {image ? (
+          <img
+            className="element-tile-image"
+            src={image}
+            alt={imageAlt}
+            width={TILE_PX[size]}
+            height={TILE_PX[size]}
+            loading="lazy"
+            decoding="async"
+          />
+        ) : null}
+        <p className="element-tile-code">
+          <Ltr>{code}</Ltr>
+          <sup className="element-tile-index">{indexLabel}</sup>
+        </p>
+      </div>
+      {name ? <p className="element-tile-name" lang="en">{name}</p> : null}
     </article>
   );
 }

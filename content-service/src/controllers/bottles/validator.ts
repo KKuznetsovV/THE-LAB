@@ -5,6 +5,8 @@ export const idParams = Joi.object({ id: Joi.string().uuid().required() });
 
 const fields = {
   cocktailId: Joi.string().uuid(),
+  displayNameEn: Joi.string().allow(null, '').max(80),
+  displayNameHe: Joi.string().allow(null, '').max(80),
   price200: Joi.number().integer().min(0).max(2000),
   price500: Joi.number().integer().min(0).max(2000),
   isAvailable: Joi.boolean(),

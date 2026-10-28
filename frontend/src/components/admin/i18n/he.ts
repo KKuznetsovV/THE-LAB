@@ -91,6 +91,8 @@ export const adminHe = {
   bottles: {
     title: 'בקבוקים',
     cocktail: 'קוקטייל',
+    displayNameEn: 'שם על הבקבוק באנגלית',
+    displayNameHe: 'שם על הבקבוק בעברית',
     price200: '200 מ״ל',
     price500: '500 מ״ל',
     fresh: 'בקבוק חדש',

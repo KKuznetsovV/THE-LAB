@@ -1,5 +1,5 @@
 import type { CocktailDto, Flavour } from '@thelab/lib';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ElementTile from '../common/element-tile/ElementTile';
@@ -33,7 +33,7 @@ function matches(item: CocktailDto, selected: Flavour[]): boolean {
 
 export default function Menu() {
   const { code } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { text } = useLocalized();
   const localize = useLocalizedPath();
   const navigate = useNavigate();
@@ -45,6 +45,8 @@ export default function Menu() {
   const spirits = useAppSelector(selectSpirits);
   const settings = useAppSelector(selectSettings);
   const [active, setActive] = useState<MenuBlockId>('liquid-records');
+  const [stuck, setStuck] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
   const selected = useMemo(() => flavoursFromSearch(search), [search]);
   const indexView = isIndexView(search);
 
@@ -53,6 +55,16 @@ export default function Menu() {
     void dispatch(loadBottles());
     void dispatch(loadSpirits());
   }, [dispatch]);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry) setStuck(!entry.isIntersecting);
+    });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const nodes = MENU_BLOCKS.map((block) => document.getElementById(block.id)).filter((node) => node !== null);
@@ -115,7 +127,8 @@ export default function Menu() {
     <div className="menu-page">
       <PageMeta title={pageTitle} description={detail || t('seo.menu')} path={pagePath} />
       <h1 className="visually-hidden">{t('menu.heading')}</h1>
-      <nav className="menu-nav" aria-label={t('menu.nav')}>
+      <div className="menu-nav-sentinel" ref={sentinelRef} aria-hidden="true" />
+      <nav className={stuck ? 'menu-nav is-stuck' : 'menu-nav'} aria-label={t('menu.nav')}>
         {MENU_BLOCKS.map((block) => (
           <a
             key={block.id}
@@ -134,13 +147,15 @@ export default function Menu() {
         ))}
       </nav>
 
-      <FlavourFilter
-        available={available}
-        selected={selected}
-        count={filtered.length}
-        onToggle={toggleFlavour}
-        onClear={clearFlavours}
-      />
+      {available.length >= 3 ? (
+        <FlavourFilter
+          available={available}
+          selected={selected}
+          count={filtered.length}
+          onToggle={toggleFlavour}
+          onClear={clearFlavours}
+        />
+      ) : null}
 
       <div className="menu-view" role="group" aria-label={t('menu.view')}>
         <button type="button" className="t-mono" aria-pressed={!indexView} onClick={() => setIndex(false)}>{t('menu.list')}</button>
@@ -163,7 +178,13 @@ export default function Menu() {
         const rows = filtered.filter((item) => item.section === block.id);
         return (
           <section key={block.id} id={block.id} className="menu-section">
-            <SectionHeader kicker={t('menu.heading')} title={t(block.titleKey)} japanese={'ja' in block ? block.ja : undefined} />
+            <SectionHeader
+              kicker={t('menu.heading')}
+              title={t(block.titleKey, { lng: 'en' })}
+              titleLang="en"
+              subtitle={i18n.language === 'he' ? t(block.titleKey) : undefined}
+              japanese={'ja' in block ? block.ja : undefined}
+            />
             {indexView ? (
               <ul className="menu-index">
                 {rows.map((item) => (
@@ -172,10 +193,10 @@ export default function Menu() {
                       <ElementTile
                         code={item.code}
                         indexLabel={item.indexLabel}
+                        name={item.nameEn}
                         image={item.imageUrl ?? undefined}
                         imageAlt={text(item.imageAltHe ?? item.nameHe, item.imageAltEn ?? item.nameEn)}
                       />
-                      <span className="visually-hidden">{item.nameEn}</span>
                     </Link>
                   </li>
                 ))}
@@ -190,7 +211,12 @@ export default function Menu() {
       })}
 
       <section id="spirits" className="menu-section">
-        <SectionHeader kicker={t('menu.heading')} title={t('menu.spirits')} />
+        <SectionHeader
+          kicker={t('menu.heading')}
+          title={t('menu.spirits', { lng: 'en' })}
+          titleLang="en"
+          subtitle={i18n.language === 'he' ? t('menu.spirits') : undefined}
+        />
         {spirits.status === 'error' ? (
           <p>
             {t('menu.loadError')}

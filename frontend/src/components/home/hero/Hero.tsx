@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import CrtOverlay from '../../common/crt-overlay/CrtOverlay';
 import GlowLogo from '../../common/glow-logo/GlowLogo';
+import Ltr from '../../common/ltr/Ltr';
 import MazeBackground from '../../common/maze-background/MazeBackground';
+import PillBadge from '../../common/pill-badge/PillBadge';
 import TerminalButton from '../../common/terminal-button/TerminalButton';
 import TypeLine from '../../common/type-line/TypeLine';
 import { useLocalizedPath } from '../../../i18n/locale';
@@ -83,14 +85,14 @@ export default function Hero() {
   const open = isOpenNow(hours, now);
   const change = nextChange(hours, now);
   const time = change ? formatHm(change.at) : '';
-  const status = open ? t('home.nodeOnline', { time }) : t('home.nodeOffline', { time });
 
   return (
     <section className="hero">
       <link rel="preload" href={tight700} as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" href={pixel400} as="font" type="font/woff2" crossOrigin="anonymous" />
       <link rel="preload" as="image" href="/brand/patterns/pattern-maze-black-thumb.webp" />
-      <MazeBackground variant="black" />
+      <MazeBackground variant="black" opacity={0.15} />
+      <div className="hero-vignette" aria-hidden="true" />
       <CrtOverlay flicker={!prefersReducedMotion()} />
       <div className="hero-copy">
         <GlowLogo variant="stacked" colour="green" glow label="THE LAB" />
@@ -98,12 +100,15 @@ export default function Hero() {
           <TypeLine text={t('home.tagline')} />
         </div>
         <p className="hero-accent t-pixel" lang="ja" aria-hidden="true">{t('home.accent')}</p>
-        <p className="hero-status t-mono">{status}</p>
+        <PillBadge>
+          {open ? t('home.nodeOnline') : t('home.nodeOffline')}
+          {time ? <> <Ltr>{time}</Ltr></> : null}
+        </PillBadge>
         <div className="hero-actions">
-          <TerminalButton href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
+          <TerminalButton className="cta-lg" href={settings.reservationUrl} newTabLabel={t('common.opensNewTab')}>
             {t('common.book')}
           </TerminalButton>
-          <Link className="terminal-button terminal-button--outline terminal-button--md" to={localize('/take-me-home')}>
+          <Link className="terminal-button terminal-button--outline terminal-button--md cta-lg" to={localize('/take-me-home')}>
             {t('home.takeMeHome')}
           </Link>
         </div>

@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import { loadBottles, loadEvents, loadMenu } from '../../redux/collections';
 import PageMeta from '../seo/PageMeta';
 import { VenueJsonLd } from '../seo/JsonLd';
+import MazeBackground from '../common/maze-background/MazeBackground';
 import BottlesTeaser from './bottles-teaser/BottlesTeaser';
 import Concept from './concept/Concept';
 import EventsTeaser from './events-teaser/EventsTeaser';
@@ -32,6 +33,9 @@ export default function Home() {
       <div className="home-sections">
         <Concept />
         <MenuTeaser />
+        <div className="maze-breaker" aria-hidden="true">
+          <MazeBackground variant="green" opacity={1} />
+        </div>
         <BottlesTeaser />
         <EventsTeaser />
         <VisitTeaser />

@@ -10,7 +10,7 @@ export default function InstagramTeaser() {
 
   return (
     <section className="instagram-teaser">
-      <SectionHeader kicker={t('home.instagramKicker')} title={t('home.instagramTitle')} />
+      <SectionHeader kicker={t('home.instagramKicker')} title={t('home.instagramTitle')} titleDir="ltr" />
       <p>{t('home.instagramBody')}</p>
       <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer">
         {t('home.follow')}

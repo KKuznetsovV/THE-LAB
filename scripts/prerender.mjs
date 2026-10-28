@@ -4,6 +4,7 @@ import { mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { publicPaths, withLocale } from './public-routes.mjs';
+import { fallbackBody } from './seed-fallback.mjs';
 
 if (process.env.SKIP_PRERENDER === '1') {
   console.log('prerender skipped (SKIP_PRERENDER=1)');
@@ -62,8 +63,22 @@ function startServer() {
     const url = new URL(req.url ?? '/', 'http://127.0.0.1');
     if (url.pathname.startsWith('/api/')) {
       const target = new URL(`${url.pathname}${url.search}`, contentOrigin);
+      const sendFallback = () => {
+        const body = fallbackBody(url.pathname);
+        if (body === null) {
+          res.writeHead(502);
+          res.end('content api unavailable');
+          return;
+        }
+        res.writeHead(200, { 'content-type': 'application/json; charset=utf-8' });
+        res.end(JSON.stringify(body));
+      };
       fetch(target)
         .then(async (upstream) => {
+          if (upstream.status >= 500) {
+            sendFallback();
+            return;
+          }
           const body = Buffer.from(await upstream.arrayBuffer());
           res.writeHead(upstream.status, {
             'content-type': upstream.headers.get('content-type') ?? 'application/json',
@@ -71,8 +86,7 @@ function startServer() {
           res.end(body);
         })
         .catch(() => {
-          res.writeHead(502);
-          res.end('content api unavailable');
+          sendFallback();
         });
       return;
     }

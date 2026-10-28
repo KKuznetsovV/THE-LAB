@@ -56,10 +56,11 @@
   color: var(--paper-ink);
 }
 
-.retro-window-controls {
-  letter-spacing: 0.2em;
+.retro-window-url {
+  justify-content: flex-start;
 }
 
-:lang(he) .retro-window-controls {
-  letter-spacing: normal;
+.retro-window-controls {
+  margin-inline-start: auto;
+  letter-spacing: 0.2em;
 }

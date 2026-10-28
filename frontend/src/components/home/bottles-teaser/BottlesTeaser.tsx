@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import BottleSilhouette from '../../common/bottle-silhouette/BottleSilhouette';
 import RetroWindow from '../../common/retro-window/RetroWindow';
 import SectionHeader from '../../common/section-header/SectionHeader';
 import TerminalButton from '../../common/terminal-button/TerminalButton';
@@ -30,7 +31,7 @@ export default function BottlesTeaser() {
             {bottle?.imageUrl ? (
               <img src={bottle.imageUrl} alt={alt} width={640} height={800} loading="lazy" decoding="async" />
             ) : (
-              <p className="t-mono" lang="en">THE LAB</p>
+              <BottleSilhouette />
             )}
           </div>
           <div className="bottles-teaser-copy">
