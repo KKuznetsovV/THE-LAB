@@ -33,6 +33,10 @@ Screenshots (Hebrew and English, desktop and mobile) are in [docs/screenshots](d
 node scripts/screenshots.mjs
 ```
 
+## System design
+
+![THE LAB system design](docs/thelab-system-design.png)
+
 ## Tech stack
 
 Node.js 24 · Express 5 · TypeScript · Joi · Sequelize + MySQL · MinIO ·
